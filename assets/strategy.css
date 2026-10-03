@@ -41,3 +41,88 @@
 @media(max-width:1050px){.origin-grid.four{grid-template-columns:1fr 1fr}}
 @media(max-width:960px){.audience-grid{grid-template-columns:1fr}.audience-card{min-height:0}.origin-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:720px){.hero-links{flex-direction:column;align-items:stretch}.hero-links a{justify-content:space-between}.audience-section{padding-top:3.5rem}.audience-grid,.origin-grid,.origin-grid.four{grid-template-columns:1fr}.audience-card{padding:1.4rem;border-radius:20px}.market-list{grid-template-columns:1fr}.market-hero{padding:3.75rem 14px 3rem}.requirement-table,.requirement-table tbody,.requirement-table tr,.requirement-table th,.requirement-table td{display:block}.requirement-table th{width:100%;border-bottom:0;padding-bottom:.35rem}.requirement-table td{padding-top:.35rem}}
+
+
+/* Hero layout fix: text, comparator, then residence links on mobile */
+@media(min-width:721px){
+  .hero-inner{
+    grid-template-areas:
+      "heroCopy heroCompare"
+      "heroMarkets heroCompare";
+    align-items:center;
+    row-gap:1.4rem;
+  }
+  .hero-copy{grid-area:heroCopy;align-self:end}
+  .hero-inner > .compare-panel{grid-area:heroCompare;align-self:center}
+  .hero-launch-markets{grid-area:heroMarkets;margin-top:0;align-self:start}
+}
+
+@media(max-width:720px){
+  .hero-inner{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    grid-template-areas:
+      "heroCopy"
+      "heroCompare"
+      "heroMarkets"!important;
+    gap:1.35rem!important;
+    padding-top:1.35rem!important;
+    padding-bottom:3rem!important;
+  }
+  .hero-copy{
+    grid-area:heroCopy!important;
+    margin:0!important;
+  }
+  .hero-copy > p{
+    margin-bottom:0!important;
+  }
+  .hero-inner > .compare-panel{
+    grid-area:heroCompare!important;
+    order:0!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:1.15rem!important;
+    background:#0b2d4f!important;
+    background:linear-gradient(145deg,#071f37 0%,#0b2d4f 52%,#123f68 100%)!important;
+    border:1px solid rgba(255,255,255,.14)!important;
+    box-shadow:0 18px 46px rgba(7,31,55,.28)!important;
+    color:#fff!important;
+  }
+  .hero-launch-markets{
+    grid-area:heroMarkets!important;
+    margin:0!important;
+  }
+  .hero-inner > .compare-panel .panel-head,
+  .hero-inner > .compare-panel .panel-head > span{
+    color:#fff!important;
+  }
+  .hero-inner > .compare-panel .secure-note{
+    color:#8ee3dc!important;
+  }
+  .hero-inner > .compare-panel .field label{
+    color:#e5f0f8!important;
+  }
+  .hero-inner > .compare-panel .field input,
+  .hero-inner > .compare-panel .field select{
+    background:#fff!important;
+    color:#122235!important;
+    border-color:#b8cddd!important;
+  }
+  .hero-inner > .compare-panel .field input:focus,
+  .hero-inner > .compare-panel .field select:focus{
+    border-color:#78b9ff!important;
+    box-shadow:0 0 0 3px rgba(120,185,255,.22)!important;
+  }
+  .hero-inner > .compare-panel .compare-submit{
+    background:#2f80ed!important;
+    color:#fff!important;
+    box-shadow:0 9px 22px rgba(0,0,0,.20)!important;
+  }
+  .hero-inner > .compare-panel .form-note{
+    color:#bed0df!important;
+  }
+  .hero-launch-markets{
+    grid-template-columns:1fr!important;
+  }
+}
