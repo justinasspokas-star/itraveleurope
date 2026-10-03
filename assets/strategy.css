@@ -126,3 +126,48 @@
     grid-template-columns:1fr!important;
   }
 }
+
+
+/* Mobile homepage hero background: preserve desktop image, clean crop and fade */
+@media(max-width:720px){
+  .hero{
+    background:#f5f8fb!important;
+  }
+  .hero-bg{
+    inset:0 0 auto 0!important;
+    height:430px!important;
+    background-image:url('europe-hero-background.webp')!important;
+    background-repeat:no-repeat!important;
+    background-size:cover!important;
+    background-position:62% top!important;
+  }
+  .hero:after{
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255,255,255,.78) 0%,
+        rgba(255,255,255,.82) 28%,
+        rgba(245,248,251,.94) 62%,
+        #f5f8fb 100%
+      )!important;
+  }
+  .hero-inner{
+    position:relative!important;
+    z-index:1!important;
+  }
+  .hero-copy{
+    padding:.35rem 0 .55rem!important;
+  }
+  .hero-copy .eyebrow{
+    text-shadow:0 1px 10px rgba(255,255,255,.9);
+  }
+  .hero-copy h1{
+    max-width:100%!important;
+    margin-top:.45rem!important;
+    margin-bottom:.9rem!important;
+  }
+  .hero-copy p{
+    max-width:100%!important;
+    line-height:1.55!important;
+  }
+}
