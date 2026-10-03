@@ -131,17 +131,19 @@
 /* Mobile homepage hero background: preserve desktop image, clean crop and fade */
 @media(max-width:720px){
   .hero{
-    background:#f5f8fb!important;
+    background:transparent!important;
   }
   .hero-bg{
     inset:0 0 auto 0!important;
-    height:430px!important;
+    z-index:-1!important;
+    height:460px!important;
     background-image:url('europe-hero-background.webp')!important;
     background-repeat:no-repeat!important;
     background-size:cover!important;
     background-position:62% top!important;
   }
   .hero:after{
+    z-index:0!important;
     background:
       linear-gradient(
         180deg,
@@ -153,7 +155,7 @@
   }
   .hero-inner{
     position:relative!important;
-    z-index:1!important;
+    z-index:2!important;
   }
   .hero-copy{
     padding:.35rem 0 .55rem!important;
