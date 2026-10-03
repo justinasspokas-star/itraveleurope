@@ -181,3 +181,7 @@
   .market-path.flag-card.usa-card .market-flag-panel img,
   .market-path.flag-card.canada-card .market-flag-panel img{width:98%; top:6px}
 }
+
+
+/* Floating compare CTA */
+.floating-compare-btn{position:fixed;right:24px;bottom:24px;z-index:160;display:inline-flex;align-items:center;gap:.65rem;padding:.95rem 1.15rem;border-radius:999px;background:linear-gradient(135deg,#12345b 0%,#0a2340 100%);color:#fff;text-decoration:none;font-weight:850;font-size:.95rem;line-height:1;box-shadow:0 16px 40px rgba(10,35,64,.28);border:1px solid rgba(255,255,255,.16);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}.floating-compare-btn:hover{transform:translateY(-2px);box-shadow:0 20px 46px rgba(10,35,64,.34);background:linear-gradient(135deg,#174574 0%,#0d2b4d 100%)}.floating-compare-btn:focus-visible{outline:3px solid rgba(47,128,237,.35);outline-offset:3px}.cookie-open .floating-compare-btn{bottom:118px}@media(max-width:720px){.floating-compare-btn{left:14px;right:14px;bottom:14px;justify-content:center;padding:1rem 1.15rem;font-size:.96rem;border-radius:16px}.cookie-open .floating-compare-btn{bottom:122px}}
