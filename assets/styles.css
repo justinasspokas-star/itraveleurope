@@ -50,6 +50,7 @@
 .country-card.visual-card .country-dot,
 .country-card.visual-card .card-kicker,
 .country-card.visual-card h2,
+.country-card.visual-card h3,
 .country-card.visual-card p,
 .country-card.visual-card .card-link{
   margin-left:1.5rem;
@@ -73,10 +74,110 @@
   .country-card.visual-card .country-dot,
   .country-card.visual-card .card-kicker,
   .country-card.visual-card h2,
+  .country-card.visual-card h3,
   .country-card.visual-card p,
   .country-card.visual-card .card-link{
     margin-left:1.2rem;
     margin-right:1.2rem;
   }
   .country-card.visual-card .card-link{margin-bottom:1.25rem}
+}
+
+
+/* Home destination preview cards */
+.home-destination-preview .country-card.visual-card{height:100%}
+@media(min-width:961px){
+  main > .section .country-grid .country-card.visual-card{height:100%}
+}
+
+
+
+
+
+/* Premium market cards with subtle flag backgrounds */
+.market-path.flag-card{
+  position:relative;
+  min-height:320px;
+  padding:1.6rem;
+  overflow:hidden;
+  border-radius:22px;
+  background:linear-gradient(180deg,#ffffff 0%, #fbfdff 100%);
+  border:1px solid rgba(201,216,230,.92);
+  box-shadow:0 12px 32px rgba(18,52,91,.06);
+  isolation:isolate;
+}
+.market-path.flag-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 20px 44px rgba(18,52,91,.11);
+}
+.market-path.flag-card .market-flag-panel{
+  position:absolute;
+  inset:0;
+  display:block;
+  overflow:hidden;
+  z-index:0;
+  pointer-events:none;
+}
+.market-path.flag-card .market-flag-panel img{
+  position:absolute;
+  top:4px;
+  left:50%;
+  width:94%;
+  height:auto;
+  object-fit:contain;
+  transform:translateX(-50%);
+  opacity:.24;
+  filter:saturate(1) contrast(1.02);
+}
+.market-path.flag-card .market-flag-panel::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.34) 0%, rgba(255,255,255,.58) 34%, rgba(255,255,255,.88) 72%, rgba(255,255,255,.96) 100%),
+    linear-gradient(90deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,0) 22%, rgba(255,255,255,0) 78%, rgba(255,255,255,.08) 100%);
+}
+.market-path.flag-card > *:not(.market-flag-panel){
+  position:relative;
+  z-index:1;
+}
+.market-path.flag-card .market-code{
+  display:inline-flex;
+  align-self:flex-start;
+  padding:.4rem .68rem;
+  border-radius:999px;
+  background:rgba(243,247,251,.92);
+  backdrop-filter:blur(4px);
+  color:var(--navy);
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  border:1px solid rgba(208,220,231,.95);
+}
+.market-path.flag-card .route-badge{
+  align-self:flex-start;
+  margin-top:.8rem;
+  background:rgba(234,243,255,.92);
+  backdrop-filter:blur(4px);
+  border:1px solid rgba(219,230,244,.96);
+}
+.market-path.flag-card h3{margin:.9rem 0 .6rem}
+.market-path.flag-card p{padding-right:.2rem}
+.market-path.flag-card .card-link{margin-top:auto}
+.market-path.flag-card.uk-card .market-flag-panel img{width:92%; top:6px; opacity:.23}
+.market-path.flag-card.india-card .market-flag-panel img{width:94%; top:2px; opacity:.25}
+.market-path.flag-card.usa-card .market-flag-panel img{width:96%; top:6px; opacity:.22}
+.market-path.flag-card.canada-card .market-flag-panel img{width:94%; top:2px; opacity:.24}
+@media(max-width:960px){
+  .market-path.flag-card{min-height:0}
+  .market-path.flag-card .market-flag-panel img{width:96%}
+}
+@media(max-width:720px){
+  .market-path.flag-card{padding:1.25rem}
+  .market-path.flag-card .market-flag-panel img{width:98%; top:6px; opacity:.22}
+  .market-path.flag-card.uk-card .market-flag-panel img,
+  .market-path.flag-card.india-card .market-flag-panel img,
+  .market-path.flag-card.usa-card .market-flag-panel img,
+  .market-path.flag-card.canada-card .market-flag-panel img{width:98%; top:6px}
 }
