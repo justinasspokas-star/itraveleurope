@@ -181,3 +181,58 @@
   .market-path.flag-card.usa-card .market-flag-panel img,
   .market-path.flag-card.canada-card .market-flag-panel img{width:98%; top:6px}
 }
+
+
+/* Mobile hero: keep text first, then comparator, with a premium dark navy panel */
+@media(max-width:720px){
+  .hero-inner{
+    padding-top:1.25rem;
+    padding-bottom:3rem;
+  }
+  .hero-inner > .hero-copy{
+    grid-row:1;
+    order:0;
+  }
+  .hero-inner > .compare-panel{
+    grid-row:2;
+    order:1;
+    width:100%;
+    max-width:none;
+    margin:.25rem 0 0;
+    background:linear-gradient(145deg,#071f37 0%,#12345b 58%,#174d78 100%);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 18px 48px rgba(7,31,55,.24);
+    color:#fff;
+  }
+  .compare-panel .panel-head{
+    color:#fff;
+  }
+  .compare-panel .secure-note{
+    color:#8ee3dc;
+  }
+  .compare-panel .field label{
+    color:#dcecf8;
+  }
+  .compare-panel .field input,
+  .compare-panel .field select{
+    background:#fff;
+    color:#122235;
+    border-color:#bfd0df;
+  }
+  .compare-panel .field input:focus,
+  .compare-panel .field select:focus{
+    border-color:#79b8ff;
+    box-shadow:0 0 0 3px rgba(121,184,255,.22);
+  }
+  .compare-panel .compare-submit{
+    background:#2f80ed;
+    color:#fff;
+    box-shadow:0 8px 22px rgba(0,0,0,.16);
+  }
+  .compare-panel .compare-submit:hover{
+    background:#4b94f2;
+  }
+  .compare-panel .form-note{
+    color:#b8cbda;
+  }
+}
