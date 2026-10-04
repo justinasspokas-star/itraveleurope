@@ -545,3 +545,240 @@
     width:38px;height:38px;border-radius:12px
   }
 }
+
+
+/* Mockup-aligned homepage UI v2 */
+.mockup-home{
+  background:
+    radial-gradient(circle at 85% 16%,rgba(104,190,255,.23),transparent 28%),
+    linear-gradient(180deg,#fbfdff 0%,#eef6ff 100%)!important;
+  overflow:hidden;
+}
+.mockup-home:before{display:none!important}
+.mockup-home .hero-inner{
+  width:min(calc(100% - 40px),1240px);
+  min-height:auto;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(420px,.92fr);
+  grid-template-areas:
+    "heroCopy heroVisual"
+    "heroCompare heroCompare";
+  column-gap:2.2rem;
+  row-gap:.8rem;
+  align-items:center;
+  padding:2.2rem 0 1.8rem;
+}
+.mockup-home .hero-copy{grid-area:heroCopy;align-self:center;max-width:680px}
+.mockup-home .hero-copy h1{
+  font-size:clamp(3rem,5.2vw,5rem);
+  line-height:.98;
+  max-width:680px;
+  margin:.4rem 0 .85rem;
+}
+.mockup-home .hero-copy h1 span{color:#2678ef}
+.mockup-home .hero-copy p{
+  font-size:1.08rem;
+  line-height:1.55;
+  max-width:550px;
+  margin-bottom:1rem;
+}
+.mockup-home .hero-sticker-chips{margin-top:.8rem}
+.mockup-home .hero-sticker-stage{
+  grid-area:heroVisual;
+  position:relative;
+  min-height:340px;
+  width:100%;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+}
+.mockup-home .hero-traveler-sticker{
+  width:min(100%,520px);
+  display:block;
+  filter:drop-shadow(0 18px 32px rgba(18,58,105,.14));
+}
+.mockup-home .compare-panel{
+  grid-area:heroCompare;
+  max-width:none;
+  width:100%;
+  padding:1.05rem 1.15rem 1rem;
+  margin:0;
+  border-radius:24px;
+  background:linear-gradient(145deg,#0b3a78 0%,#0a346e 55%,#082c60 100%);
+  box-shadow:0 22px 50px rgba(12,54,112,.24);
+}
+.mockup-home .premium-panel-label{
+  align-items:center;
+  padding:0 .1rem .7rem;
+}
+.mockup-home .premium-panel-label span{font-size:.64rem}
+.mockup-home .premium-panel-label strong{font-size:1.08rem}
+.mockup-home .compare-form{
+  display:grid;
+  grid-template-columns:1.2fr 1.2fr .9fr .9fr .8fr 1.15fr;
+  gap:.7rem;
+  align-items:end;
+}
+.mockup-home .compare-form>.field:first-child,
+.mockup-home .compare-form>.field:nth-child(2){grid-column:auto}
+.mockup-home .compare-form .field label{font-size:.73rem}
+.mockup-home .compare-form .field input,
+.mockup-home .compare-form .field select{
+  min-height:52px;
+  border-radius:13px;
+  padding:.72rem .78rem;
+}
+.mockup-home .compare-submit{
+  grid-column:auto;
+  min-height:52px;
+  border-radius:14px;
+  padding:.75rem .85rem;
+  font-size:.94rem;
+}
+.mockup-home .compare-trust-row{
+  display:flex;
+  justify-content:center;
+  gap:2.2rem;
+  flex-wrap:wrap;
+  margin-top:.75rem;
+  color:#e3eef9;
+  font-size:.78rem;
+  font-weight:750;
+}
+.mockup-home .compare-trust-row span:before{
+  content:"✓";
+  color:#9ce5db;
+  margin-right:.35rem;
+  font-weight:900;
+}
+.home-benefits{
+  width:min(calc(100% - 40px),1240px);
+  grid-template-columns:repeat(4,1fr);
+  gap:.8rem;
+  padding:1rem 0 1.3rem;
+}
+.home-benefits div{
+  border-left:0;
+  padding:.9rem 1rem;
+  border:1px solid #dbe6f3;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 8px 22px rgba(20,57,103,.05);
+}
+.home-benefits strong{font-size:.92rem}
+.home-benefits span{font-size:.78rem}
+.mockup-home + .home-benefits + .section{padding-top:2rem}
+@media(max-width:1080px){
+  .mockup-home .compare-form{grid-template-columns:repeat(3,1fr)}
+  .mockup-home .compare-submit{grid-column:1/-1}
+}
+@media(max-width:720px){
+  .mockup-home{
+    background:
+      radial-gradient(circle at 95% 8%,rgba(107,190,255,.20),transparent 25%),
+      linear-gradient(180deg,#fbfdff 0%,#eef6ff 100%)!important;
+  }
+  .mockup-home .hero-inner{
+    width:min(calc(100% - 20px),var(--max));
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    grid-template-areas:
+      "heroCopy"
+      "heroCompare"!important;
+    gap:.45rem!important;
+    padding:.65rem 0 1rem!important;
+  }
+  .mockup-home .hero-copy{
+    grid-area:heroCopy!important;
+    position:relative;
+    min-height:156px;
+    padding:0 126px 0 0!important;
+    margin:0!important;
+  }
+  .mockup-home .hero-copy .eyebrow{
+    font-size:.61rem;
+    letter-spacing:.15em;
+  }
+  .mockup-home .hero-copy h1{
+    font-size:2.12rem!important;
+    line-height:.96;
+    margin:.2rem 0 .4rem!important;
+    max-width:none!important;
+  }
+  .mockup-home .hero-copy h1 span{display:block}
+  .mockup-home .hero-copy p{
+    max-width:205px!important;
+    font-size:.86rem!important;
+    line-height:1.38!important;
+    margin:0!important;
+  }
+  .mockup-home .hero-sticker-chips{display:none!important}
+  .mockup-home .hero-sticker-stage{
+    position:absolute;
+    z-index:3;
+    right:4px;
+    top:70px;
+    width:126px;
+    min-height:0;
+    height:138px;
+    overflow:visible;
+    pointer-events:none;
+  }
+  .mockup-home .hero-traveler-sticker{
+    width:145px;
+    max-width:none;
+    transform:translateX(-8px);
+    filter:drop-shadow(0 9px 18px rgba(18,58,105,.12));
+  }
+  .mockup-home .compare-panel{
+    grid-area:heroCompare!important;
+    margin:0!important;
+    padding:.78rem!important;
+    border-radius:18px!important;
+  }
+  .mockup-home .premium-panel-label{
+    padding:0 .05rem .52rem;
+  }
+  .mockup-home .premium-panel-label span{font-size:.54rem}
+  .mockup-home .premium-panel-label strong{font-size:.9rem}
+  .mockup-home .compare-form{
+    display:flex!important;
+    flex-direction:column;
+    gap:.45rem;
+  }
+  .mockup-home .compare-form .field{width:100%}
+  .mockup-home .compare-form .field label{
+    font-size:.66rem;
+    margin-bottom:.08rem;
+  }
+  .mockup-home .compare-form .field input,
+  .mockup-home .compare-form .field select{
+    min-height:41px;
+    border-radius:10px;
+    padding:.55rem .68rem;
+    font-size:13px;
+  }
+  .mockup-home .compare-submit{
+    min-height:44px;
+    width:100%;
+    border-radius:11px;
+    font-size:.87rem;
+    margin-top:.05rem;
+  }
+  .mockup-home .compare-trust-row{
+    gap:.45rem;
+    justify-content:space-between;
+    margin-top:.55rem;
+    font-size:.62rem;
+  }
+  .mockup-home .compare-trust-row span{flex:1 1 auto;text-align:center}
+  .home-benefits{
+    width:min(calc(100% - 20px),var(--max));
+    grid-template-columns:1fr 1fr;
+    gap:.5rem;
+    padding:.65rem 0 1rem;
+  }
+  .home-benefits div{padding:.68rem .72rem;border-radius:13px}
+  .home-benefits strong{font-size:.78rem}
+  .home-benefits span{font-size:.67rem}
+}
