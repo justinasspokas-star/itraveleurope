@@ -82,22 +82,29 @@
   if(summary){
     const q=new URLSearchParams(location.search);
     const origin=q.get('origin'),dest=q.get('destination'),depart=q.get('depart'),back=q.get('return'),age=q.get('age');
-    const dnames={spain:'Spain',italy:'Italy',france:'France',germany:'Germany',greece:'Greece',portugal:'Portugal',switzerland:'Switzerland','united-kingdom':'the United Kingdom',multiple:'multiple European countries'};
-    const onames={usa:'the United States',canada:'Canada',uk:'the United Kingdom',india:'India'};
-    if(dnames[dest]&&depart&&back&&age){
+    const originLabel=(origin||'').trim()||'your home country';
+    const destLabel=(dest||'').trim();
+    if(destLabel&&depart&&back&&age){
       const f=d=>new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric',year:'numeric'}).format(new Date(d+'T12:00:00'));
-      summary.textContent=`Resident of ${onames[origin]||'your home country'} · ${dnames[dest]} · ${f(depart)} to ${f(back)} · oldest traveler ${age.toLowerCase()}.`;
+      summary.textContent=`Resident of ${originLabel} · ${destLabel} · ${f(depart)} to ${f(back)} · oldest traveler ${age.toLowerCase()}.`;
     }
   }
 
   const guidance=document.querySelector('#route-guidance');
   if(guidance){
     const q=new URLSearchParams(location.search); const origin=q.get('origin'),dest=q.get('destination');
-    if(origin==='india'&&dest==='united-kingdom') guidance.innerHTML='<strong>Different visa system:</strong> the United Kingdom is not in the Schengen Area. Use UK visa and insurance requirements for this trip.';
-    else if(origin==='india') guidance.innerHTML='<strong>Schengen visa route:</strong> verify at least €30,000 of qualifying medical cover, Schengen-wide validity, repatriation cover and the full required period against the consulate checklist.';
-    else if(origin==='usa') guidance.innerHTML='<strong>USA route:</strong> compare overseas medical and evacuation protection carefully. Original Medicare generally has very limited coverage outside the U.S.; confirm your own health plan before relying on it.';
-    else if(origin==='canada') guidance.innerHTML='<strong>Canada route:</strong> confirm what your provincial or territorial health plan and any workplace or credit-card benefits cover outside Canada before buying additional protection.';
-    else if(origin==='uk') guidance.innerHTML='<strong>UK route:</strong> GHIC or an eligible EHIC can help with medically necessary state healthcare in covered countries, but compare travel insurance separately for repatriation, cancellation, baggage, delays and other gaps.';
+    const originKey=(origin||'').trim().toLowerCase();
+    const destKey=(dest||'').trim().toLowerCase();
+    const isIndia=originKey==='india';
+    const isUSA=['usa','united states','united states of america'].includes(originKey);
+    const isCanada=originKey==='canada';
+    const isUK=['uk','united kingdom','great britain'].includes(originKey);
+    const isUKDest=['united-kingdom','united kingdom','uk','great britain'].includes(destKey);
+    if(isIndia&&isUKDest) guidance.innerHTML='<strong>Different visa system:</strong> the United Kingdom is not in the Schengen Area. Use UK visa and insurance requirements for this trip.';
+    else if(isIndia) guidance.innerHTML='<strong>Schengen visa route:</strong> verify at least €30,000 of qualifying medical cover, Schengen-wide validity, repatriation cover and the full required period against the consulate checklist.';
+    else if(isUSA) guidance.innerHTML='<strong>USA route:</strong> compare overseas medical and evacuation protection carefully. Original Medicare generally has very limited coverage outside the U.S.; confirm your own health plan before relying on it.';
+    else if(isCanada) guidance.innerHTML='<strong>Canada route:</strong> confirm what your provincial or territorial health plan and any workplace or credit-card benefits cover outside Canada before buying additional protection.';
+    else if(isUK) guidance.innerHTML='<strong>UK route:</strong> GHIC or an eligible EHIC can help with medically necessary state healthcare in covered countries, but compare travel insurance separately for repatriation, cancellation, baggage, delays and other gaps.';
   }
 
   const isHomePage=location.pathname==='/'||location.pathname==='/index.html';
