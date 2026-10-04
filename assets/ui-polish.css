@@ -123,3 +123,45 @@ body.reference-home .rh-f label{min-height:2.5em;display:flex;align-items:flex-e
 .rh-f,.rh-f select,.rh-f input,.article-content,.article-layout>*,.callout,.scenario-list{min-width:0;max-width:100%}
 @media(max-width:620px){body.reference-home .rh-fields{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 @media(max-width:960px){.article-layout{grid-template-columns:minmax(0,1fr)!important}}
+
+
+/* Home questions visual 2026-10-04 */
+body.reference-home .home-questions-feature{
+  align-items:start;
+  gap:3rem;
+}
+body.reference-home .home-questions-feature .questions-copy{
+  min-width:0;
+}
+body.reference-home .questions-visual{
+  margin:2rem 0 0;
+  border-radius:24px;
+  overflow:hidden;
+  background:#eaf4ff;
+  border:1px solid #d7e4f2;
+  box-shadow:0 18px 40px rgba(19,55,99,.12);
+}
+body.reference-home .questions-visual img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  object-position:center center;
+}
+@media(max-width:960px){
+  body.reference-home .home-questions-feature{
+    grid-template-columns:1fr;
+    gap:2rem;
+  }
+  body.reference-home .questions-visual{
+    max-width:680px;
+    margin-top:1.5rem;
+  }
+}
+@media(max-width:620px){
+  body.reference-home .questions-visual{
+    margin-top:1.25rem;
+    border-radius:18px;
+  }
+}
