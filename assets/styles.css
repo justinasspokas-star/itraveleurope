@@ -225,3 +225,69 @@
     bottom:150px;
   }
 }
+
+
+/* Premium UI system refresh 2026-10-04 */
+:root{
+  --navy:#0d356e;
+  --navy-2:#092955;
+  --blue:#2878f0;
+  --teal:#1ba69a;
+  --ink:#10294a;
+  --muted:#5c7089;
+  --line:#d9e5f2;
+  --ice:#f5f9ff;
+  --shadow:0 16px 44px rgba(20,57,103,.10);
+  --radius:22px;
+}
+body{background:#fff;color:var(--ink)}
+.site-header{background:rgba(255,255,255,.97);box-shadow:0 5px 20px rgba(22,55,92,.035)}
+.header-inner{height:72px}
+.brand{width:205px}
+.site-nav a{font-weight:750;color:#173455}
+.button{
+  border-radius:16px;
+  background:linear-gradient(180deg,#3488ff,#2474e8);
+  box-shadow:0 10px 24px rgba(40,120,240,.18);
+}
+.button:hover{background:linear-gradient(180deg,#247cf2,#1f67cc)}
+.listing-hero,.results-hero,.article-hero,.market-hero{
+  background:
+    radial-gradient(circle at 85% 15%,rgba(70,163,255,.13),transparent 30%),
+    linear-gradient(180deg,#f9fcff,#eef6ff);
+}
+.listing-hero h1,.results-hero h1,.article-hero h1,.market-hero h1{color:#0d2f60}
+.country-card,.article-card,.result-card,.contact-card,.origin-card,.market-path,.proof-item,.seo-summary>div,.sticky-card{
+  border-color:#dbe6f3;
+  border-radius:22px;
+  box-shadow:0 10px 28px rgba(20,57,103,.055);
+}
+.country-card:hover,.origin-card:hover,.market-path:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 42px rgba(20,57,103,.11);
+}
+.article-card{border-top-color:#2878f0;background:#f7fbff}
+.field input,.field select{
+  border-radius:13px;
+  border-color:#cbdbea;
+  background:#fff;
+}
+.requirement-table{border-radius:20px;box-shadow:0 9px 24px rgba(20,57,103,.04)}
+.check-list li{border-radius:16px;box-shadow:0 7px 20px rgba(20,57,103,.04)}
+.split-feature{background:#f5f9ff}
+.cta-band{
+  background:linear-gradient(135deg,#0a2d61,#0d4c8c);
+  border-radius:26px;
+  box-shadow:0 24px 54px rgba(13,53,110,.17);
+}
+.site-footer{background:#08274d}
+.footer-brand{border-radius:14px}
+@media(max-width:720px){
+  .header-inner{height:64px}
+  .brand{width:170px}
+  .listing-hero,.results-hero,.article-hero,.market-hero{padding-top:3.1rem;padding-bottom:2.8rem}
+  .listing-hero h1,.results-hero h1,.article-hero h1,.market-hero h1{font-size:2.45rem}
+  .section{padding-top:3.2rem;padding-bottom:3.2rem}
+  .country-card,.article-card,.result-card,.contact-card,.origin-card,.market-path{border-radius:18px}
+  .cta-band{border-radius:20px}
+}
