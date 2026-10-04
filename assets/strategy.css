@@ -172,3 +172,376 @@
     line-height:1.55!important;
   }
 }
+
+
+/* iTravelEurope premium sticker travel home */
+.premium-sticker-home{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 6%,rgba(54,204,190,.13) 0,rgba(54,204,190,0) 27%),
+    radial-gradient(circle at 84% 18%,rgba(47,128,237,.14) 0,rgba(47,128,237,0) 30%),
+    linear-gradient(180deg,#f9fcff 0%,#eef7ff 100%)!important;
+}
+.premium-sticker-home .hero-bg,
+.premium-sticker-home:after{display:none!important}
+.premium-sticker-home:before{
+  content:"";
+  position:absolute;
+  width:520px;
+  height:520px;
+  right:-160px;
+  top:-150px;
+  border-radius:50%;
+  border:1px solid rgba(47,128,237,.10);
+  box-shadow:0 0 0 44px rgba(47,128,237,.025),0 0 0 92px rgba(47,128,237,.018);
+  pointer-events:none;
+}
+.premium-sticker-home .hero-inner{
+  position:relative;
+  z-index:1;
+  min-height:760px;
+  grid-template-columns:minmax(0,1.02fr) minmax(410px,.98fr);
+  grid-template-areas:
+    "heroCopy heroCompare"
+    "heroVisual heroCompare"
+    "heroMarkets heroMarkets";
+  column-gap:4.2rem;
+  row-gap:1.15rem;
+  align-items:center;
+  padding:4.2rem 0 3.3rem;
+}
+.premium-sticker-home .hero-copy{
+  grid-area:heroCopy;
+  align-self:end;
+  max-width:670px;
+}
+.premium-sticker-home .hero-copy h1{
+  max-width:660px;
+  font-size:clamp(3.15rem,5.2vw,5rem);
+  letter-spacing:-.06em;
+  margin:.55rem 0 1rem;
+}
+.premium-sticker-home .hero-copy p{
+  max-width:620px;
+  color:#455d76;
+  font-size:1.08rem;
+}
+.hero-sticker-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.65rem;
+  margin-top:1.2rem;
+}
+.hero-sticker-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.68rem .9rem;
+  border:1px solid rgba(176,204,229,.88);
+  border-radius:999px;
+  background:rgba(255,255,255,.9);
+  box-shadow:0 10px 26px rgba(24,63,112,.07);
+  color:#163a68;
+  font-size:.82rem;
+  font-weight:850;
+  backdrop-filter:blur(8px);
+}
+.hero-sticker-chip>span{
+  display:grid;
+  place-items:center;
+  width:1.45rem;
+  height:1.45rem;
+  border-radius:50%;
+  background:#e9f3ff;
+  color:#1f70d6;
+  font-size:.76rem;
+  font-weight:950;
+}
+.hero-sticker-stage{
+  grid-area:heroVisual;
+  position:relative;
+  min-height:265px;
+  width:min(100%,570px);
+  align-self:start;
+  isolation:isolate;
+}
+.sticker-blob{
+  position:absolute;
+  border-radius:50%;
+  z-index:-1;
+  filter:blur(.2px);
+}
+.sticker-blob-one{
+  width:245px;
+  height:245px;
+  left:80px;
+  top:10px;
+  background:linear-gradient(145deg,#dff5ff,#d8eeff);
+}
+.sticker-blob-two{
+  width:150px;
+  height:150px;
+  left:265px;
+  top:74px;
+  background:linear-gradient(145deg,#dffaf6,#e8fff9);
+}
+.travel-sticker{
+  position:absolute;
+  left:0;
+  top:-8px;
+  width:420px;
+  max-width:82%;
+  padding:7px;
+  border-radius:34px;
+  background:rgba(255,255,255,.97);
+  box-shadow:0 25px 55px rgba(16,55,100,.16);
+  transform:rotate(-2deg);
+  border:1px solid rgba(214,228,241,.92);
+}
+.travel-sticker svg{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:28px;
+  background:linear-gradient(145deg,#f8fcff,#eef8ff);
+}
+.floating-sticker{
+  position:absolute;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.58rem .78rem .58rem .56rem;
+  border:1px solid rgba(198,218,236,.95);
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 14px 30px rgba(20,58,101,.12);
+  color:#183b66;
+  font-size:.76rem;
+  transform:rotate(var(--sticker-rotate,0deg));
+}
+.floating-sticker span{
+  display:grid;
+  place-items:center;
+  width:30px;
+  height:30px;
+  border-radius:10px;
+  background:#eaf4ff;
+  color:#2372d7;
+  font-weight:950;
+}
+.floating-sticker strong{font-size:.78rem}
+.floating-sticker-schengen{left:355px;top:5px;--sticker-rotate:5deg}
+.floating-sticker-medical{left:385px;top:102px;--sticker-rotate:-3deg}
+.floating-sticker-medical span{background:#e2faf6;color:#11877f}
+.floating-sticker-safe{left:330px;top:188px;--sticker-rotate:3deg}
+.floating-sticker-safe span{background:#eef7e9;color:#4b8d2b}
+
+.premium-sticker-home .compare-panel{
+  grid-area:heroCompare;
+  align-self:center;
+  max-width:520px;
+  width:100%;
+  margin-left:auto;
+  padding:1.35rem;
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 100% 0,rgba(75,135,211,.35),transparent 34%),
+    linear-gradient(145deg,#071e36 0%,#0b2f54 55%,#123f68 100%);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 30px 70px rgba(12,45,82,.24);
+  color:#fff;
+}
+.premium-panel-label{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:1rem;
+  padding:.15rem .2rem 1rem;
+}
+.premium-panel-label span{
+  color:#8edfd6;
+  font-size:.7rem;
+  font-weight:900;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+.premium-panel-label strong{
+  color:#fff;
+  font-size:1.05rem;
+  letter-spacing:-.02em;
+}
+.premium-sticker-home .compare-panel .field label{
+  color:#dcecf8;
+}
+.premium-sticker-home .compare-panel .field input,
+.premium-sticker-home .compare-panel .field select{
+  min-height:52px;
+  background:#fff;
+  color:#132942;
+  border:1px solid rgba(180,205,225,.82);
+  box-shadow:0 4px 12px rgba(0,0,0,.04);
+}
+.premium-sticker-home .compare-panel .compare-submit{
+  min-height:54px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#4e8dff,#2f80ed);
+  box-shadow:0 11px 24px rgba(0,0,0,.18);
+}
+.premium-sticker-home .compare-panel .form-note{
+  color:#adc5d8;
+}
+.premium-sticker-home .hero-launch-markets{
+  grid-area:heroMarkets;
+  grid-template-columns:repeat(4,1fr);
+  gap:.9rem;
+  margin:1.2rem 0 0;
+}
+.premium-sticker-home .launch-market{
+  min-height:82px;
+  padding:.9rem 1rem;
+  border-radius:19px;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(184,209,230,.78);
+  box-shadow:0 10px 26px rgba(19,63,108,.055);
+  backdrop-filter:blur(10px);
+}
+.premium-sticker-home .launch-market:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 34px rgba(19,63,108,.10);
+}
+.premium-sticker-home .launch-market .flag{
+  display:grid;
+  place-items:center;
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:#f3f8fd;
+  font-size:1.35rem;
+}
+
+@media(max-width:960px){
+  .premium-sticker-home .hero-inner{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "heroCopy"
+      "heroVisual"
+      "heroCompare"
+      "heroMarkets";
+    max-width:720px;
+    min-height:0;
+  }
+  .premium-sticker-home .compare-panel{max-width:none;margin:0}
+  .premium-sticker-home .hero-launch-markets{grid-template-columns:1fr 1fr}
+  .hero-sticker-stage{min-height:275px}
+}
+@media(max-width:720px){
+  .premium-sticker-home{
+    background:
+      radial-gradient(circle at 96% 5%,rgba(47,128,237,.15),transparent 28%),
+      radial-gradient(circle at 7% 17%,rgba(54,204,190,.13),transparent 23%),
+      linear-gradient(180deg,#f9fcff 0%,#eef7ff 100%)!important;
+  }
+  .premium-sticker-home:before{display:none}
+  .premium-sticker-home .hero-inner{
+    width:min(calc(100% - 28px),var(--max));
+    grid-template-areas:
+      "heroCopy"
+      "heroVisual"
+      "heroCompare"
+      "heroMarkets"!important;
+    gap:1rem!important;
+    padding:1.35rem 0 2.8rem!important;
+  }
+  .premium-sticker-home .hero-copy{padding:0!important}
+  .premium-sticker-home .hero-copy .eyebrow{
+    font-size:.68rem;
+    letter-spacing:.12em;
+    text-shadow:none!important;
+  }
+  .premium-sticker-home .hero-copy h1{
+    font-size:2.6rem!important;
+    line-height:.99;
+    margin:.4rem 0 .75rem!important;
+    text-shadow:none!important;
+  }
+  .premium-sticker-home .hero-copy p{
+    font-size:.98rem!important;
+    line-height:1.52!important;
+    color:#4a6078;
+    text-shadow:none!important;
+  }
+  .hero-sticker-chips{
+    gap:.5rem;
+    margin-top:.85rem;
+  }
+  .hero-sticker-chip{
+    padding:.54rem .68rem;
+    font-size:.72rem;
+  }
+  .hero-sticker-chip>span{
+    width:1.25rem;
+    height:1.25rem;
+    font-size:.68rem;
+  }
+  .hero-sticker-stage{
+    width:100%;
+    min-height:238px;
+    margin:.25rem 0 -.15rem;
+  }
+  .travel-sticker{
+    left:50%;
+    top:3px;
+    width:320px;
+    max-width:88%;
+    transform:translateX(-50%) rotate(-1.8deg);
+    border-radius:27px;
+    box-shadow:0 18px 40px rgba(16,55,100,.15);
+  }
+  .travel-sticker svg{border-radius:22px}
+  .sticker-blob-one{
+    width:190px;height:190px;left:9%;top:21px
+  }
+  .sticker-blob-two{
+    width:120px;height:120px;left:58%;top:76px
+  }
+  .floating-sticker{
+    padding:.42rem .56rem .42rem .4rem;
+    border-radius:13px;
+  }
+  .floating-sticker span{
+    width:25px;height:25px;border-radius:8px
+  }
+  .floating-sticker strong{font-size:.68rem}
+  .floating-sticker-schengen{left:auto;right:1%;top:5px}
+  .floating-sticker-medical{left:0;top:123px}
+  .floating-sticker-safe{left:auto;right:4%;top:174px}
+  .premium-sticker-home .compare-panel{
+    margin:0!important;
+    padding:1.05rem!important;
+    border-radius:22px!important;
+  }
+  .premium-panel-label{
+    padding:.05rem .1rem .8rem;
+  }
+  .premium-panel-label span{font-size:.62rem}
+  .premium-panel-label strong{font-size:.92rem}
+  .premium-sticker-home .compare-panel .field input,
+  .premium-sticker-home .compare-panel .field select{
+    min-height:49px;
+    border-radius:12px;
+  }
+  .premium-sticker-home .hero-launch-markets{
+    grid-template-columns:1fr!important;
+    gap:.7rem;
+    margin:.15rem 0 0!important;
+  }
+  .premium-sticker-home .launch-market{
+    min-height:70px;
+    border-radius:16px;
+    padding:.78rem .85rem;
+  }
+  .premium-sticker-home .launch-market .flag{
+    width:38px;height:38px;border-radius:12px
+  }
+}
