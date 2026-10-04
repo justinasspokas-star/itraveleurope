@@ -86,7 +86,7 @@
     const destLabel=(dest||'').trim();
     if(destLabel&&depart&&back&&age){
       const f=d=>new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric',year:'numeric'}).format(new Date(d+'T12:00:00'));
-      summary.textContent=`Resident of ${originLabel} · ${destLabel} · ${f(depart)} to ${f(back)} · oldest traveler ${age.toLowerCase()}.`;
+      summary.textContent=`Resident of ${originLabel} · ${destLabel} · ${f(depart)} to ${f(back)} · ${age}.`;
     }
   }
 
