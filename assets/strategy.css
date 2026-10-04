@@ -782,3 +782,323 @@
   .home-benefits strong{font-size:.78rem}
   .home-benefits span{font-size:.67rem}
 }
+
+
+/* Reference-match corrective pass 2026-10-04 */
+.mockup-home .hero-inner{
+  width:min(calc(100% - 36px),1180px)!important;
+  grid-template-columns:minmax(0,.95fr) minmax(440px,1.05fr)!important;
+  grid-template-areas:
+    "heroCopy heroVisual"
+    "heroCompare heroCompare"!important;
+  column-gap:1.5rem!important;
+  row-gap:.55rem!important;
+  padding:1.5rem 0 1.25rem!important;
+  align-items:center!important;
+}
+.mockup-home .hero-copy{
+  align-self:center!important;
+  max-width:560px!important;
+}
+.mockup-home .hero-copy .eyebrow{
+  color:#2d79e8!important;
+  font-size:.68rem!important;
+  letter-spacing:.18em!important;
+}
+.mockup-home .hero-copy h1{
+  max-width:570px!important;
+  font-size:clamp(3rem,4.35vw,4.15rem)!important;
+  line-height:.98!important;
+  letter-spacing:-.055em!important;
+  margin:.35rem 0 .72rem!important;
+}
+.mockup-home .hero-copy h1 span{
+  display:block!important;
+  color:#2f78ef!important;
+}
+.mockup-home .hero-copy p{
+  max-width:500px!important;
+  font-size:1.02rem!important;
+  line-height:1.5!important;
+  margin:0 0 .9rem!important;
+}
+.mockup-home .hero-sticker-chips{
+  gap:.55rem!important;
+  margin-top:.6rem!important;
+}
+.mockup-home .hero-sticker-chip{
+  padding:.6rem .78rem!important;
+  border-radius:14px!important;
+  font-size:.78rem!important;
+  box-shadow:0 7px 18px rgba(20,57,103,.06)!important;
+}
+.mockup-home .hero-sticker-stage{
+  min-height:345px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  overflow:visible!important;
+}
+.mockup-home .hero-traveler-sticker{
+  width:min(100%,500px)!important;
+  max-height:345px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  filter:drop-shadow(0 14px 24px rgba(18,58,105,.11))!important;
+}
+.mockup-home .compare-panel{
+  border-radius:19px!important;
+  padding:.85rem 1rem .8rem!important;
+  background:linear-gradient(145deg,#0b3c80,#0a3270 58%,#082a5e)!important;
+  box-shadow:0 18px 40px rgba(12,54,112,.2)!important;
+}
+.mockup-home .premium-panel-label{
+  padding:0 .05rem .5rem!important;
+}
+.mockup-home .premium-panel-label span{
+  font-size:.58rem!important;
+  letter-spacing:.12em!important;
+}
+.mockup-home .premium-panel-label strong{
+  font-size:.95rem!important;
+}
+.mockup-home .compare-form{
+  grid-template-columns:1.2fr 1.2fr .9fr .9fr .82fr 1.18fr!important;
+  gap:.58rem!important;
+}
+.mockup-home .compare-form .field label{
+  font-size:.66rem!important;
+  margin-bottom:.05rem!important;
+}
+.mockup-home .compare-form .field input,
+.mockup-home .compare-form .field select{
+  min-height:46px!important;
+  border-radius:10px!important;
+  padding:.58rem .65rem!important;
+  font-size:.82rem!important;
+}
+.mockup-home .compare-submit{
+  min-height:46px!important;
+  border-radius:11px!important;
+  font-size:.84rem!important;
+  padding:.55rem .7rem!important;
+}
+.mockup-home .compare-trust-row{
+  margin-top:.55rem!important;
+  font-size:.67rem!important;
+  gap:1.7rem!important;
+}
+.home-benefits{
+  padding:.72rem 0 1.05rem!important;
+  gap:.45rem!important;
+}
+.home-benefits div{
+  position:relative!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  padding:.35rem .4rem .35rem 2.7rem!important;
+  min-height:52px!important;
+}
+.home-benefits div:before{
+  content:"✓";
+  position:absolute;
+  left:.15rem;
+  top:.28rem;
+  width:34px;
+  height:34px;
+  border:2px solid #2f80ed;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:#2f80ed;
+  font-weight:900;
+  background:#f2f8ff;
+}
+.home-benefits strong{
+  display:block!important;
+  font-size:.8rem!important;
+  margin:0!important;
+}
+.home-benefits span{
+  display:block!important;
+  font-size:.67rem!important;
+  line-height:1.3!important;
+}
+.home-benefits + .section{
+  padding-top:1.25rem!important;
+}
+.home-benefits + .section .section-heading{
+  text-align:center!important;
+  justify-content:center!important;
+  margin-bottom:.9rem!important;
+}
+.home-benefits + .section .section-heading .eyebrow{
+  display:none!important;
+}
+.home-benefits + .section .section-heading h2{
+  font-size:1.55rem!important;
+  margin:0!important;
+}
+.home-benefits + .section .market-paths{
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:.7rem!important;
+}
+.home-benefits + .section .market-path{
+  position:relative!important;
+  min-height:86px!important;
+  padding:.85rem .85rem .8rem 3.75rem!important;
+  border-radius:14px!important;
+  justify-content:center!important;
+  background:#fff!important;
+  box-shadow:0 8px 20px rgba(18,52,91,.05)!important;
+}
+.home-benefits + .section .market-path .market-flag-panel,
+.home-benefits + .section .market-path .route-badge,
+.home-benefits + .section .market-path p,
+.home-benefits + .section .market-path .card-link{
+  display:none!important;
+}
+.home-benefits + .section .market-path:before{
+  position:absolute;
+  left:.75rem;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:2rem;
+}
+.home-benefits + .section .usa-card:before{content:"🇺🇸"}
+.home-benefits + .section .canada-card:before{content:"🇨🇦"}
+.home-benefits + .section .uk-card:before{content:"🇬🇧"}
+.home-benefits + .section .india-card:before{content:"🇮🇳"}
+.home-benefits + .section .market-code{
+  font-size:.55rem!important;
+  padding:.2rem .35rem!important;
+  width:max-content!important;
+}
+.home-benefits + .section .market-path h3{
+  margin:.25rem 0 0!important;
+  font-size:.94rem!important;
+  line-height:1.18!important;
+}
+
+@media(max-width:720px){
+  .mockup-home .hero-inner{
+    width:min(calc(100% - 18px),var(--max))!important;
+    grid-template-areas:
+      "heroCopy"
+      "heroCompare"!important;
+    gap:.42rem!important;
+    padding:.55rem 0 .85rem!important;
+  }
+  .mockup-home .hero-copy{
+    min-height:146px!important;
+    padding:0 120px 0 0!important;
+  }
+  .mockup-home .hero-copy .eyebrow{
+    font-size:.55rem!important;
+    letter-spacing:.14em!important;
+  }
+  .mockup-home .hero-copy h1{
+    font-size:1.92rem!important;
+    line-height:.95!important;
+    letter-spacing:-.045em!important;
+    margin:.18rem 0 .36rem!important;
+  }
+  .mockup-home .hero-copy h1 span{display:block!important}
+  .mockup-home .hero-copy p{
+    max-width:190px!important;
+    font-size:.78rem!important;
+    line-height:1.35!important;
+  }
+  .mockup-home .hero-sticker-stage{
+    position:absolute!important;
+    right:-2px!important;
+    top:64px!important;
+    width:126px!important;
+    height:145px!important;
+    min-height:0!important;
+    z-index:3!important;
+  }
+  .mockup-home .hero-traveler-sticker{
+    width:140px!important;
+    max-width:none!important;
+    max-height:145px!important;
+  }
+  .mockup-home .compare-panel{
+    padding:.7rem!important;
+    border-radius:16px!important;
+  }
+  .mockup-home .premium-panel-label strong{
+    font-size:.84rem!important;
+  }
+  .mockup-home .premium-panel-label span{
+    font-size:.5rem!important;
+  }
+  .mockup-home .compare-form{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:.36rem!important;
+  }
+  .mockup-home .compare-form .field label{
+    font-size:.6rem!important;
+  }
+  .mockup-home .compare-form .field input,
+  .mockup-home .compare-form .field select{
+    min-height:39px!important;
+    font-size:.76rem!important;
+    padding:.5rem .58rem!important;
+  }
+  .mockup-home .compare-submit{
+    min-height:42px!important;
+    font-size:.8rem!important;
+  }
+  .mockup-home .compare-trust-row{
+    margin-top:.45rem!important;
+    font-size:.56rem!important;
+    gap:.25rem!important;
+    justify-content:space-between!important;
+  }
+  .home-benefits{
+    grid-template-columns:repeat(3,1fr)!important;
+    width:min(calc(100% - 18px),var(--max))!important;
+    padding:.5rem 0 .8rem!important;
+  }
+  .home-benefits div{
+    padding:.2rem .15rem .2rem 1.75rem!important;
+    min-height:42px!important;
+  }
+  .home-benefits div:before{
+    width:25px!important;
+    height:25px!important;
+    font-size:.65rem!important;
+    left:0!important;
+    top:.15rem!important;
+  }
+  .home-benefits div:nth-child(4){display:none!important}
+  .home-benefits strong{font-size:.62rem!important}
+  .home-benefits span{font-size:.54rem!important}
+  .home-benefits + .section{
+    padding-top:.8rem!important;
+  }
+  .home-benefits + .section .section-heading{
+    align-items:center!important;
+  }
+  .home-benefits + .section .section-heading h2{
+    font-size:1.15rem!important;
+  }
+  .home-benefits + .section .market-paths{
+    grid-template-columns:1fr 1fr!important;
+    gap:.45rem!important;
+  }
+  .home-benefits + .section .market-path{
+    min-height:72px!important;
+    padding:.65rem .55rem .6rem 3rem!important;
+  }
+  .home-benefits + .section .market-path:before{
+    font-size:1.55rem!important;
+    left:.62rem!important;
+  }
+  .home-benefits + .section .market-code{font-size:.48rem!important}
+  .home-benefits + .section .market-path h3{font-size:.75rem!important}
+}
