@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://itraveleurope.com/sitemap.xml
