@@ -181,3 +181,74 @@
   .market-path.flag-card.usa-card .market-flag-panel img,
   .market-path.flag-card.canada-card .market-flag-panel img{width:98%; top:6px}
 }
+
+
+/* Mobile floating Compare Insurance CTA */
+.mobile-compare-float{
+  display:none;
+}
+@media(max-width:720px){
+  .mobile-compare-float{
+    position:fixed;
+    left:12px;
+    right:12px;
+    bottom:14px;
+    z-index:190;
+    min-height:54px;
+    padding:0 18px;
+    border-radius:999px;
+    background:#12345b;
+    color:#fff!important;
+    text-decoration:none!important;
+    font-weight:850;
+    font-size:15px;
+    line-height:1;
+    letter-spacing:-.01em;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    box-shadow:0 12px 32px rgba(11,41,72,.28);
+    border:1px solid rgba(255,255,255,.16);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(22px);
+    pointer-events:none;
+    transition:opacity .22s ease,transform .22s ease,visibility .22s ease,background .2s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mobile-compare-float.show{
+    display:flex;
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+  .mobile-compare-float:active{
+    transform:translateY(1px) scale(.99);
+  }
+  .mobile-compare-float-arrow{
+    font-size:19px;
+    line-height:1;
+    transform:translateY(-1px);
+  }
+  body.cookie-open .mobile-compare-float{
+    bottom:156px;
+  }
+}
+@media(max-width:420px){
+  .mobile-compare-float{
+    left:10px;
+    right:10px;
+    bottom:10px;
+    min-height:52px;
+    font-size:14px;
+  }
+  body.cookie-open .mobile-compare-float{
+    bottom:168px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .mobile-compare-float{
+    transition:none;
+  }
+}
