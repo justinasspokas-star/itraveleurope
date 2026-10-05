@@ -94,6 +94,9 @@
   .ite-provider-details{padding:16px}
   .ite-contract-btn{padding:13px 14px}
 }
+.ite-trip-price-line{font-weight:800;color:var(--r-text)}
+.ite-trip-origin-line{color:var(--r-muted)}
+.ite-trip-note{padding-top:8px;border-top:1px solid var(--r-border);font-size:10.5px;line-height:1.45}
 </style></head><body><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner">
 <a aria-label="iTravelEurope home" class="brand" href="../index.html"><img alt="iTravelEurope" height="153" src="../assets/itraveleurope-logo.webp" width="460"/></a>
@@ -164,10 +167,12 @@
 
         <div class="ite-provider-price">
           <div class="ite-availability">✓ International routing available</div>
-          <div class="ite-live-label">Live quote</div>
-          <div class="ite-live-price">See price<small>Calculated directly by IATI for your trip</small></div>
-          <div class="ite-trip-mini" id="iati-trip-mini">Your dates and travelers will be used in the IATI quote flow.</div>
-          <a class="ite-contract-btn" data-affiliate="iati" href="https://www.iatiseguros.com/en/?r=84208681926165" target="_blank" rel="nofollow sponsored noopener">See price at IATI →</a>
+          <div class="ite-live-label">Estimated total</div>
+          <div class="ite-live-price" id="iati-total-dest">Calculating…<small id="iati-total-origin">Approximate conversion</small></div>
+          <div class="ite-trip-mini ite-trip-price-line" id="iati-price-breakdown">Calculating price per day…</div>
+          <div class="ite-trip-mini ite-trip-origin-line" id="iati-price-breakdown-origin"></div>
+          <div class="ite-trip-mini ite-trip-note" id="iati-price-note">Editorial estimate only. Final price is confirmed by IATI.</div>
+          <a class="ite-contract-btn" data-affiliate="iati" href="https://www.iatiseguros.com/en/?r=84208681926165" target="_blank" rel="nofollow sponsored noopener">See live price at IATI →</a>
           <button class="ite-details-btn" id="iati-details-button" type="button" aria-expanded="false" aria-controls="iati-details">View compared details</button>
         </div>
       </div>
@@ -195,16 +200,148 @@
 <script id="ite-iati-result-js">
 (function(){
   const q=new URLSearchParams(location.search);
-  const depart=q.get('depart'), back=q.get('return'), age=q.get('age');
-  const mini=document.getElementById('iati-trip-mini');
-  if(mini && depart && back){
-    const a=new Date(depart+'T12:00:00'), b=new Date(back+'T12:00:00');
-    const days=Math.max(1,Math.round((b-a)/86400000)+1);
-    mini.textContent=days+' covered day'+(days===1?'':'s')+(age?' · '+age:'')+' · live price confirmed by IATI.';
+  const origin=(q.get('origin')||'').trim();
+  const destination=(q.get('destination')||'').trim();
+  const depart=q.get('depart');
+  const back=q.get('return');
+  const travelersRaw=q.get('age')||'1 traveler';
+
+  const FX=Object.freeze({
+    EUR:1,
+    USD:1.08,
+    GBP:0.86,
+    CAD:1.47,
+    INR:94.0,
+    CHF:0.93,
+    NOK:11.7,
+    SEK:11.2,
+    DKK:7.46,
+    PLN:4.28,
+    CZK:24.8,
+    HUF:395,
+    RON:5.02,
+    ISK:146
+  });
+
+  const normalize=v=>String(v||'').trim().toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+
+  function currencyForPlace(value,isDestination){
+    const v=normalize(value);
+    if(['united states','united states of america','usa','us','u.s.','estados unidos'].includes(v)) return 'USD';
+    if(['united kingdom','uk','great britain','reino unido'].includes(v)) return 'GBP';
+    if(v==='canada') return 'CAD';
+    if(v==='india') return 'INR';
+    if(['switzerland','suiza'].includes(v)) return 'CHF';
+    if(['norway','noruega'].includes(v)) return 'NOK';
+    if(['sweden','suecia'].includes(v)) return 'SEK';
+    if(['denmark','dinamarca'].includes(v)) return 'DKK';
+    if(['poland','polonia'].includes(v)) return 'PLN';
+    if(['czech republic','czechia','chequia','republica checa'].includes(v)) return 'CZK';
+    if(['hungary','hungria'].includes(v)) return 'HUF';
+    if(['romania','rumania'].includes(v)) return 'RON';
+    if(['iceland','islandia'].includes(v)) return 'ISK';
+
+    const euroPlaces=[
+      'spain','espana','europe','europa','schengen','france','francia','italy','italia',
+      'germany','alemania','portugal','greece','grecia','netherlands','paises bajos',
+      'belgium','belgica','austria','ireland','irlanda','finland','finlandia',
+      'luxembourg','luxemburgo','slovakia','eslovaquia','slovenia','eslovenia',
+      'croatia','croacia','estonia','latvia','letonia','lithuania','lituania',
+      'malta','cyprus','chipre'
+    ];
+    if(euroPlaces.includes(v)) return 'EUR';
+
+    return isDestination?'EUR':'EUR';
   }
+
+  function formatMoney(amount,currency){
+    try{
+      return new Intl.NumberFormat('en-US',{
+        style:'currency',
+        currency,
+        maximumFractionDigits:['HUF','ISK'].includes(currency)?0:2
+      }).format(amount);
+    }catch(e){
+      return currency+' '+Number(amount||0).toFixed(2);
+    }
+  }
+
+  function tripDays(){
+    if(!depart||!back) return 14;
+    const a=new Date(depart+'T12:00:00');
+    const b=new Date(back+'T12:00:00');
+    return Math.max(1,Math.round((b-a)/86400000)+1);
+  }
+
+  function travelerCount(){
+    if(String(travelersRaw).includes('5+')) return 5;
+    const m=String(travelersRaw).match(/\d+/);
+    return m?Math.max(1,parseInt(m[0],10)):1;
+  }
+
+  function isEuropeDestination(){
+    const v=normalize(destination);
+    const nonEurope=['united states','united states of america','usa','us','u.s.','canada'];
+    return !nonEurope.includes(v);
+  }
+
+  function dailyRateEUR(){
+    const o=normalize(origin);
+    if(isEuropeDestination()){
+      if(['united kingdom','uk','great britain','reino unido'].includes(o)) return 2.35;
+      if(['united states','united states of america','usa','us','u.s.','canada','india'].includes(o)) return 3.58;
+      return 3.58;
+    }
+    return 4.25;
+  }
+
+  const days=tripDays();
+  const travelers=travelerCount();
+  const originCurrency=currencyForPlace(origin,false);
+  const destinationCurrency=currencyForPlace(destination,true);
+  const rateEUR=dailyRateEUR();
+  const totalEUR=rateEUR*days*travelers;
+
+  const destRate=FX[destinationCurrency]||1;
+  const originRate=FX[originCurrency]||1;
+
+  const totalDest=totalEUR*destRate;
+  const totalOrigin=totalEUR*originRate;
+  const perDayDest=(rateEUR*travelers)*destRate;
+  const perDayOrigin=(rateEUR*travelers)*originRate;
+
+  const totalDestEl=document.getElementById('iati-total-dest');
+  const totalOriginEl=document.getElementById('iati-total-origin');
+  const breakdown=document.getElementById('iati-price-breakdown');
+  const breakdownOrigin=document.getElementById('iati-price-breakdown-origin');
+  const note=document.getElementById('iati-price-note');
+
+  if(totalDestEl){
+    totalDestEl.firstChild.nodeValue='≈ '+formatMoney(totalDest,destinationCurrency);
+  }
+  if(totalOriginEl){
+    if(originCurrency===destinationCurrency){
+      totalOriginEl.textContent='Destination and departure currency: '+destinationCurrency;
+    }else{
+      totalOriginEl.textContent='≈ '+formatMoney(totalOrigin,originCurrency)+' in departure currency';
+    }
+  }
+  if(breakdown){
+    breakdown.textContent='≈ '+formatMoney(perDayDest,destinationCurrency)+' / day · '+days+' day'+(days===1?'':'s')+' · '+travelers+' traveler'+(travelers===1?'':'s');
+  }
+  if(breakdownOrigin){
+    breakdownOrigin.textContent=originCurrency===destinationCurrency
+      ? ''
+      : '≈ '+formatMoney(perDayOrigin,originCurrency)+' / day in departure currency';
+  }
+  if(note){
+    note.textContent='Approximate editorial price and FX conversion. Final price, eligibility and policy terms are confirmed by IATI.';
+  }
+
   const btn=document.getElementById('iati-details-button');
   const details=document.getElementById('iati-details');
-  if(btn && details){
+  if(btn&&details){
     btn.addEventListener('click',function(){
       const open=details.classList.toggle('open');
       btn.setAttribute('aria-expanded',String(open));
