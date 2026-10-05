@@ -252,3 +252,128 @@
     transition:none;
   }
 }
+
+
+/* Shared homepage-style comparator for article/sidebar pages */
+.sticky-card.embedded-home-compare{
+  position:sticky;
+  top:96px;
+  background:linear-gradient(135deg,#223574 0%,#1a2866 60%,#16225a 100%);
+  color:#fff;
+  border:0;
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 24px 48px -12px rgba(26,40,102,.35),inset 0 1px 0 rgba(255,255,255,.12);
+}
+.embedded-home-compare h2{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0 0 16px;
+  color:#fff;
+  font-size:18px;
+  line-height:1.2;
+}
+.embedded-home-compare h2 svg{width:25px;height:25px;flex:0 0 auto}
+.embedded-compare-fields{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.embedded-compare-field label{
+  display:block;
+  margin:0 0 5px;
+  color:#fff;
+  font-size:11px;
+  font-weight:700;
+}
+.embedded-compare-field input,
+.embedded-compare-field select{
+  width:100%;
+  height:46px;
+  border:0;
+  border-radius:11px;
+  padding:0 12px;
+  background:#fff;
+  color:#1b2550;
+  font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+  font-size:13px;
+  font-weight:550;
+  box-shadow:0 1px 2px rgba(0,0,0,.12);
+  outline:none;
+}
+.embedded-compare-field input:focus,
+.embedded-compare-field select:focus{
+  box-shadow:0 0 0 3px rgba(125,150,255,.28);
+}
+.embedded-compare-submit{
+  width:100%;
+  min-height:46px;
+  border:0;
+  border-radius:11px;
+  background:linear-gradient(180deg,#5d78ff,#4258ec);
+  color:#fff;
+  font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+  margin-top:2px;
+}
+.embedded-compare-submit:hover{
+  background:linear-gradient(180deg,#6982ff,#4b60ef);
+}
+.embedded-compare-mini{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  margin:2px 0 0;
+  color:rgba(255,255,255,.72);
+  font-size:10px;
+  line-height:1.35;
+  text-align:center;
+}
+.embedded-compare-mini::before{
+  content:"✓";
+  display:grid;
+  place-items:center;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:rgba(255,255,255,.14);
+  color:#fff;
+  font-size:9px;
+  flex:0 0 auto;
+}
+@media(max-width:960px){
+  .sticky-card.embedded-home-compare{position:static}
+}
+@media(max-width:720px){
+  .article-aside .sticky-card.embedded-home-compare{
+    padding:14px;
+    border-radius:16px;
+    margin:0;
+  }
+  .embedded-home-compare h2{
+    font-size:15px;
+    margin-bottom:10px;
+    gap:8px;
+  }
+  .embedded-home-compare h2 svg{width:22px;height:22px}
+  .embedded-compare-fields{gap:7px}
+  .embedded-compare-field label{font-size:9px;margin-bottom:3px}
+  .embedded-compare-field input,
+  .embedded-compare-field select{
+    height:39px;
+    border-radius:9px;
+    font-size:11px;
+    padding:0 10px;
+  }
+  .embedded-compare-submit{
+    min-height:41px;
+    height:41px;
+    border-radius:9px;
+    font-size:11px;
+  }
+  .embedded-compare-mini{font-size:8px;margin-top:1px}
+}
