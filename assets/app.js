@@ -76,6 +76,13 @@
     if(label.includes('compare travel insurance')||href==='/#start'||href==='#start'||href==='/#compare-travel-insurance'||href==='#compare-travel-insurance'){
       track('compare_cta_click',{link_text:(link.textContent||'').trim().slice(0,100),page_path:location.pathname});
     }
+    const affiliate=(link.dataset.affiliate||'').trim().toLowerCase();
+    if(affiliate){
+      track('click_affiliate',{affiliate_partner:affiliate,link_url:href,page_path:location.pathname});
+      if(affiliate==='iati'){
+        track('click_affiliate_iati',{affiliate_partner:'iati',link_url:href,page_path:location.pathname});
+      }
+    }
   });
 
   const summary=document.querySelector('#trip-summary');
