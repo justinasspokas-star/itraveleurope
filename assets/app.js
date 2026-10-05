@@ -45,6 +45,30 @@
   const iso = today.toISOString().slice(0,10);
   document.querySelectorAll('input[type=date]').forEach(i => i.min = iso);
 
+  const embeddedComparatorCountries=[
+    'Argentina','Australia','Austria','Belgium','Bolivia','Brazil','Canada','Chile','China','Colombia','Costa Rica','Croatia','Czechia','Denmark','Dominican Republic','Ecuador','Estonia','Finland','France','Germany','Greece','Guatemala','Hungary','Iceland','India','Ireland','Israel','Italy','Japan','Latvia','Lithuania','Luxembourg','Malta','Mexico','Netherlands','New Zealand','Norway','Panama','Paraguay','Peru','Poland','Portugal','Romania','Singapore','Slovakia','Slovenia','South Africa','South Korea','Spain','Sweden','Switzerland','United Kingdom','United States','Uruguay','Venezuela'
+  ];
+  const embeddedComparatorDestinations=[
+    'Spain','France','Italy','Greece','Portugal','Germany','Switzerland','United Kingdom','Europe','Schengen','Multiple countries','United States'
+  ];
+  const ensureDatalist=(id,items)=>{
+    let list=document.getElementById(id);
+    if(!list){
+      list=document.createElement('datalist'); list.id=id;
+      list.innerHTML=items.map(v=>'<option value="'+v.replace(/"/g,'&quot;')+'"></option>').join('');
+      document.body.appendChild(list);
+    }
+    return list;
+  };
+  document.querySelectorAll('[data-embedded-origin]').forEach(input=>{
+    ensureDatalist('ite-origin-countries',embeddedComparatorCountries);
+    input.setAttribute('list','ite-origin-countries');
+  });
+  document.querySelectorAll('[data-embedded-destination]').forEach(input=>{
+    ensureDatalist('ite-destination-countries',embeddedComparatorDestinations);
+    input.setAttribute('list','ite-destination-countries');
+  });
+
   document.querySelectorAll('[data-compare-form]').forEach(form => {
     const depart = form.querySelector('[name=depart]');
     const back = form.querySelector('[name=return]');
