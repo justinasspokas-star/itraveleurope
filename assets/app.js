@@ -114,17 +114,22 @@
     else if(isUK) guidance.innerHTML='<strong>UK route:</strong> GHIC or an eligible EHIC can help with medically necessary state healthcare in covered countries, but compare travel insurance separately for repatriation, cancellation, baggage, delays and other gaps.';
   }
 
-  const isHomePage=location.pathname==='/'||location.pathname==='/index.html';
-  if(!isHomePage){
-    const floatingCompare=document.createElement('a');
-    floatingCompare.className='mobile-compare-float';
-    floatingCompare.href='/#compare-travel-insurance';
-    floatingCompare.textContent='Compare travel insurance';
-    floatingCompare.setAttribute('aria-label','Compare travel insurance');
-    document.body.appendChild(floatingCompare);
-    const update=()=>floatingCompare.classList.toggle('show',window.scrollY>120);
-    update(); window.addEventListener('scroll',update,{passive:true});
-  }
+  const floatingCompare=document.createElement('a');
+  floatingCompare.className='mobile-compare-float';
+  floatingCompare.href=(location.pathname==='/'||location.pathname==='/index.html')
+    ? '#compare-travel-insurance'
+    : '/#compare-travel-insurance';
+  floatingCompare.innerHTML='<span>Compare insurance</span><span class="mobile-compare-float-arrow" aria-hidden="true">→</span>';
+  floatingCompare.setAttribute('aria-label','Compare insurance');
+  document.body.appendChild(floatingCompare);
+
+  const updateFloatingCompare=()=>{
+    const isMobile=window.matchMedia('(max-width: 720px)').matches;
+    floatingCompare.classList.toggle('show',isMobile && window.scrollY>120);
+  };
+  updateFloatingCompare();
+  window.addEventListener('scroll',updateFloatingCompare,{passive:true});
+  window.addEventListener('resize',updateFloatingCompare,{passive:true});
 
   const banner=document.querySelector('.cookie-banner');
   try{
