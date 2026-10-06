@@ -30,6 +30,14 @@
 .ite-comparison-intro h2{font-size:15px;margin:0 0 4px;color:var(--r-text)}
 .ite-comparison-intro p{font-size:13px;margin:0;color:var(--r-muted);line-height:1.55}
 .ite-provider-card{background:#fff;border:2px solid var(--r-teal);border-radius:var(--r-radius);overflow:hidden;box-shadow:0 12px 34px rgba(11,31,58,.08)}
+.ite-provider-card + .ite-provider-card{margin-top:14px}
+.ite-provider-card.ite-chapka-card{border-color:#2f6fb4}
+.ite-provider-card.ite-chapka-card .ite-provider-badge{background:#eaf2fb;color:#163e6b}
+.ite-provider-card.ite-chapka-card .ite-provider-logo-shell{background:#eef5fc;border-color:#d6e6f5}
+.ite-provider-card.ite-chapka-card .ite-provider-logo-fallback{display:block;color:#225f9e;font-size:18px;letter-spacing:-.03em}
+.ite-provider-card.ite-chapka-card .ite-contract-btn{background:#2f6fb4;color:#fff!important}
+.ite-provider-card.ite-chapka-card .ite-contract-btn:hover{background:#245b95;color:#fff!important}
+.ite-provider-card[hidden]{display:none!important}
 .ite-provider-badge{background:var(--r-teal);padding:7px 20px;font-size:11px;font-weight:800;color:var(--r-navy);letter-spacing:.05em;text-transform:uppercase}
 .ite-provider-body{padding:22px;display:grid;grid-template-columns:150px minmax(0,1fr) 220px;gap:24px;align-items:start}
 .ite-provider-logo-block{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
@@ -117,7 +125,7 @@
     <div class="ite-results-toolbar">
       <div class="ite-results-toolbar-left">
         <svg fill="none" height="15" stroke="#00C4A1" stroke-width="2.4" viewBox="0 0 24 24" width="15" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-        <span><strong>1 live provider</strong> currently available for comparison.</span>
+        <span><strong id="provider-count">2 live providers</strong> currently available for comparison.</span>
       </div>
       <span>Final quote shown by the insurer</span>
     </div>
@@ -126,12 +134,12 @@
       <div class="ite-comparison-intro-icon">✓</div>
       <div>
         <h2>We show the provider first, then you confirm the live quote</h2>
-        <p>Review coverage highlights here, then continue to IATI to confirm eligibility, the exact product, price, exclusions and policy wording before you buy.</p>
+        <p>Review coverage highlights here, then continue to the provider to confirm eligibility, the exact product, price, exclusions and policy wording before you buy.</p>
       </div>
     </section>
 
     <article class="ite-provider-card" aria-label="IATI travel insurance result">
-      <div class="ite-provider-badge">Recommended provider · international travel</div>
+      <div class="ite-provider-badge">International travel option</div>
       <div class="ite-provider-body">
         <div class="ite-provider-logo-block">
           <span class="ite-provider-logo-shell">
@@ -188,7 +196,63 @@
       </div>
     </article>
 
-    <div class="ite-affiliate-note"><strong>Independent comparison:</strong> purchasing is completed directly with IATI. iTravelEurope may earn a commission if you buy through this partner link, at no additional step in the comparison flow.</div>
+
+    <article class="ite-provider-card ite-chapka-card" id="chapka-provider-card" aria-label="Chapka Cap Schengen travel insurance result">
+      <div class="ite-provider-badge">Schengen visa option · short stays</div>
+      <div class="ite-provider-body">
+        <div class="ite-provider-logo-block">
+          <span class="ite-provider-logo-shell">
+            <span class="ite-provider-logo-fallback">chapka</span>
+          </span>
+          <div class="ite-provider-name">Chapka</div>
+          <div class="ite-provider-plan">Cap Schengen</div>
+          <div class="ite-verified">✓ Schengen certificate</div>
+        </div>
+
+        <div class="ite-provider-coverage">
+          <div class="ite-pills">
+            <span class="ite-pill green">€30,000 medical</span>
+            <span class="ite-pill navy">Schengen visa</span>
+            <span class="ite-pill amber">Short stays</span>
+          </div>
+          <div class="ite-coverage-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2f6fb4" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Medical expenses: <strong>up to €30,000</strong>
+          </div>
+          <div class="ite-coverage-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2f6fb4" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Repatriation assistance: <strong>100% of actual costs according to published benefits</strong>
+          </div>
+          <div class="ite-coverage-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2f6fb4" stroke-width="2"><path d="M5 3h14v18H5zM8 8h8M8 12h8M8 16h5"/></svg>
+            Visa certificate: <strong>issued immediately after purchase</strong>
+          </div>
+          <div class="ite-best-for"><strong>Best for:</strong> travelers who need travel medical insurance for a short Schengen stay or a Schengen visa application.</div>
+          <div class="ite-caution"><strong>Keep in mind:</strong> eligibility, age band, residence zone, exclusions and the final rate must be confirmed directly with Chapka.</div>
+        </div>
+
+        <div class="ite-provider-price">
+          <div class="ite-availability">✓ Schengen short-stay option</div>
+          <div class="ite-live-label">Published starting price</div>
+          <div class="ite-live-price">From €18<small>Final price depends on trip length, age and residence</small></div>
+          <div class="ite-trip-mini ite-trip-note">Chapka publishes Cap Schengen from €18. The live quote and policy wording shown by Chapka at purchase prevail.</div>
+          <a class="ite-contract-btn" data-affiliate="chapka" href="https://www.chapkadirect.com/index.php?action=produit&id=930&app=ViajeroLATAM" target="_blank" rel="nofollow sponsored noopener">See live price at Chapka →</a>
+          <button class="ite-details-btn" id="chapka-details-button" type="button" aria-expanded="false" aria-controls="chapka-details">View compared details</button>
+        </div>
+      </div>
+
+      <div class="ite-provider-details" id="chapka-details">
+        <div class="ite-details-grid">
+          <div class="ite-detail"><div class="ite-detail-label">Medical cover</div><div class="ite-detail-value">Up to €30,000</div><div class="ite-detail-sub">Published for Cap Schengen. Confirm exclusions and eligible expenses in the current policy wording.</div></div>
+          <div class="ite-detail"><div class="ite-detail-label">Repatriation</div><div class="ite-detail-value">100% actual costs</div><div class="ite-detail-sub">According to Chapka's published Cap Schengen benefits and assistance conditions.</div></div>
+          <div class="ite-detail"><div class="ite-detail-label">Visa certificate</div><div class="ite-detail-value">Immediate</div><div class="ite-detail-sub">Chapka states the certificate is designed for Schengen visa applications and is delivered after purchase.</div></div>
+          <div class="ite-detail"><div class="ite-detail-label">Purchase</div><div class="ite-detail-value">Direct with Chapka</div><div class="ite-detail-sub">iTravelEurope does not underwrite or issue the insurance policy.</div></div>
+        </div>
+        <div class="ite-source-note">Coverage summary based on Chapka's current Cap Schengen product information. The live quote, eligibility decision, policy wording and price displayed by Chapka at the time of purchase prevail.</div>
+      </div>
+    </article>
+
+    <div class="ite-affiliate-note"><strong>Independent comparison:</strong> purchasing is completed directly with the selected provider. iTravelEurope may earn a commission if you buy through a partner link, without changing the provider’s published price.</div>
   </div>
 </section>
 </main><footer class="site-footer"><div class="footer-grid">
@@ -349,4 +413,48 @@
     });
   }
 })();
-</script></body></html>
+</script>
+<script id="ite-chapka-result-js">
+(function(){
+  const card=document.getElementById('chapka-provider-card');
+  const count=document.getElementById('provider-count');
+  const button=document.getElementById('chapka-details-button');
+  const details=document.getElementById('chapka-details');
+  if(!card) return;
+
+  const normalize=v=>String(v||'').trim().toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+
+  const q=new URLSearchParams(location.search);
+  const destination=normalize(q.get('destination'));
+  const schengen=new Set([
+    'austria','belgium','bulgaria','croatia','czechia','czech republic','denmark',
+    'estonia','finland','france','germany','greece','hungary','iceland','italy',
+    'latvia','liechtenstein','lithuania','luxembourg','malta','netherlands','norway',
+    'poland','portugal','romania','slovakia','slovenia','spain','sweden','switzerland',
+    'schengen area','schengen','europe','multiple countries'
+  ]);
+  const explicitlyOutside=new Set([
+    'united kingdom','uk','great britain','ireland','united states','united states of america',
+    'usa','us','canada','mexico','australia','new zealand','japan','singapore'
+  ]);
+
+  let show=true;
+  if(destination){
+    if(explicitlyOutside.has(destination)) show=false;
+    else if(!schengen.has(destination) && destination!=='multiple') show=false;
+  }
+
+  card.hidden=!show;
+  if(count) count.textContent=show?'2 live providers':'1 live provider';
+
+  if(button&&details){
+    button.addEventListener('click',()=>{
+      const open=details.classList.toggle('open');
+      button.setAttribute('aria-expanded',String(open));
+      button.textContent=open?'Hide compared details':'View compared details';
+    });
+  }
+})();
+</script>
+</body></html>

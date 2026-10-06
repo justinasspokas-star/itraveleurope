@@ -106,6 +106,9 @@
       if(affiliate==='iati'){
         track('click_affiliate_iati',{affiliate_partner:'iati',link_url:href,page_path:location.pathname});
       }
+      if(affiliate==='chapka'){
+        track('click_affiliate_chapka',{affiliate_partner:'chapka',link_url:href,page_path:location.pathname});
+      }
     }
   });
 
