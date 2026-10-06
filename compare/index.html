@@ -35,6 +35,10 @@
 .ite-provider-card.ite-chapka-card .ite-provider-badge{background:#eaf2fb;color:#163e6b}
 .ite-provider-card.ite-chapka-card .ite-provider-logo-shell{background:#eef5fc;border-color:#d6e6f5}
 .ite-provider-card.ite-chapka-card .ite-provider-logo-fallback{display:none;color:#225f9e;font-size:18px;letter-spacing:-.03em}
+/* Chapka large logo */
+.ite-provider-card.ite-chapka-card .ite-provider-logo-shell img{
+  width:100%;height:100%;max-width:none;object-fit:contain;transform:scale(5);transform-origin:center;
+}
 .ite-provider-card.ite-chapka-card .ite-contract-btn{background:#2f6fb4;color:#fff!important}
 .ite-provider-card.ite-chapka-card .ite-contract-btn:hover{background:#245b95;color:#fff!important}
 .ite-provider-card[hidden]{display:none!important}
@@ -177,8 +181,8 @@
           <div class="ite-availability">✓ Schengen short-stay option</div>
           <div class="ite-live-label">Estimated total</div>
           <div class="ite-live-price" id="chapka-total">Calculating…<small>€2.50 per day per traveler</small></div>
-          <div class="ite-trip-mini ite-trip-price-line" id="chapka-price-breakdown">Calculating trip total…</div>
-          <div class="ite-trip-mini ite-trip-note">Editorial estimate based on €2.50/day per traveler. Final price and eligibility are confirmed by Chapka.</div>
+          <div class="ite-trip-mini ite-trip-price-line" id="chapka-price-breakdown">Calculating trip total…</div><div class="ite-trip-mini ite-trip-origin-line" id="chapka-euro-daily"></div>
+          <div class="ite-trip-mini ite-trip-note">Editorial estimate based on €2.50/day per traveler, converted approximately to your departure-country currency. Final price and eligibility are confirmed by Chapka.</div>
           <a class="ite-contract-btn" data-affiliate="chapka" href="https://www.chapkadirect.com/index.php?action=produit&id=930&app=ViajeroLATAM" target="_blank" rel="nofollow sponsored noopener">See live price at Chapka →</a>
           <button class="ite-details-btn" id="chapka-details-button" type="button" aria-expanded="false" aria-controls="chapka-details">View compared details</button>
         </div>
@@ -265,6 +269,149 @@
 <div><h2>Company</h2><a href="../about/index.html">About &amp; editorial standards</a><a href="../contact/index.html">Contact</a><a href="../affiliate-disclosure/index.html">Affiliate disclosure</a><a href="../privacy/index.html">Privacy</a></div>
 </div><div class="footer-bottom"><span>© 2026 iTravelEurope</span><span>Information, not insurance, legal or medical advice.</span></div></footer>
 <div aria-label="Cookie preferences" class="cookie-banner" hidden="" role="dialog"><div><strong>Your privacy matters</strong><p>We use essential storage for site preferences. Optional analytics stay off unless you accept them.</p></div><div class="cookie-actions"><button class="button ghost" data-cookie="essential">Essential only</button><button class="button small" data-cookie="all">Accept analytics</button></div></div><script defer="" src="../assets/app.js"></script><script defer="" src="../assets/strategy.js"></script>
+<script id="ite-price-currency-utils">
+(function(){
+  const COUNTRY_CURRENCY=Object.freeze({
+    'afghanistan':'AFN','albania':'ALL','algeria':'DZD','andorra':'EUR','angola':'AOA',
+    'antigua and barbuda':'XCD','argentina':'ARS','armenia':'AMD','australia':'AUD','austria':'EUR',
+    'azerbaijan':'AZN','bahamas':'BSD','bahrain':'BHD','bangladesh':'BDT','barbados':'BBD',
+    'belarus':'BYN','belgium':'EUR','belize':'BZD','benin':'XOF','bhutan':'BTN','bolivia':'BOB',
+    'bosnia and herzegovina':'BAM','botswana':'BWP','brazil':'BRL','brunei':'BND','bulgaria':'EUR',
+    'burkina faso':'XOF','burundi':'BIF','cabo verde':'CVE','cambodia':'KHR','cameroon':'XAF',
+    'canada':'CAD','central african republic':'XAF','chad':'XAF','chile':'CLP','china':'CNY',
+    'colombia':'COP','comoros':'KMF','costa rica':'CRC','croatia':'EUR','cuba':'CUP','cyprus':'EUR',
+    'czechia':'CZK','czech republic':'CZK','democratic republic of the congo':'CDF','denmark':'DKK',
+    'djibouti':'DJF','dominica':'XCD','dominican republic':'DOP','ecuador':'USD','egypt':'EGP',
+    'el salvador':'USD','equatorial guinea':'XAF','eritrea':'ERN','estonia':'EUR','eswatini':'SZL',
+    'ethiopia':'ETB','fiji':'FJD','finland':'EUR','france':'EUR','gabon':'XAF','gambia':'GMD',
+    'georgia':'GEL','germany':'EUR','ghana':'GHS','greece':'EUR','grenada':'XCD','guatemala':'GTQ',
+    'guinea':'GNF','guinea-bissau':'XOF','guyana':'GYD','haiti':'HTG','honduras':'HNL',
+    'hungary':'HUF','iceland':'ISK','india':'INR','indonesia':'IDR','iran':'IRR','iraq':'IQD',
+    'ireland':'EUR','israel':'ILS','italy':'EUR','ivory coast':'XOF','jamaica':'JMD','japan':'JPY',
+    'jordan':'JOD','kazakhstan':'KZT','kenya':'KES','kiribati':'AUD','kuwait':'KWD',
+    'kyrgyzstan':'KGS','laos':'LAK','latvia':'EUR','lebanon':'LBP','lesotho':'LSL','liberia':'LRD',
+    'libya':'LYD','liechtenstein':'CHF','lithuania':'EUR','luxembourg':'EUR','madagascar':'MGA',
+    'malawi':'MWK','malaysia':'MYR','maldives':'MVR','mali':'XOF','malta':'EUR',
+    'marshall islands':'USD','mauritania':'MRU','mauritius':'MUR','mexico':'MXN','micronesia':'USD',
+    'moldova':'MDL','monaco':'EUR','mongolia':'MNT','montenegro':'EUR','morocco':'MAD',
+    'mozambique':'MZN','myanmar':'MMK','namibia':'NAD','nauru':'AUD','nepal':'NPR',
+    'netherlands':'EUR','new zealand':'NZD','nicaragua':'NIO','niger':'XOF','nigeria':'NGN',
+    'north korea':'KPW','north macedonia':'MKD','norway':'NOK','oman':'OMR','pakistan':'PKR',
+    'palau':'USD','panama':'PAB','papua new guinea':'PGK','paraguay':'PYG','peru':'PEN',
+    'philippines':'PHP','poland':'PLN','portugal':'EUR','qatar':'QAR','republic of the congo':'XAF',
+    'romania':'RON','russia':'RUB','rwanda':'RWF','saint kitts and nevis':'XCD',
+    'saint lucia':'XCD','saint vincent and the grenadines':'XCD','samoa':'WST','san marino':'EUR',
+    'sao tome and principe':'STN','saudi arabia':'SAR','senegal':'XOF','serbia':'RSD',
+    'seychelles':'SCR','sierra leone':'SLE','singapore':'SGD','slovakia':'EUR','slovenia':'EUR',
+    'solomon islands':'SBD','somalia':'SOS','south africa':'ZAR','south korea':'KRW',
+    'south sudan':'SSP','spain':'EUR','sri lanka':'LKR','sudan':'SDG','suriname':'SRD',
+    'sweden':'SEK','switzerland':'CHF','syria':'SYP','taiwan':'TWD','tajikistan':'TJS',
+    'tanzania':'TZS','thailand':'THB','timor-leste':'USD','togo':'XOF','tonga':'TOP',
+    'trinidad and tobago':'TTD','tunisia':'TND','turkey':'TRY','turkmenistan':'TMT','tuvalu':'AUD',
+    'uganda':'UGX','ukraine':'UAH','united arab emirates':'AED','united kingdom':'GBP',
+    'united states':'USD','uruguay':'UYU','uzbekistan':'UZS','vanuatu':'VUV','vatican city':'EUR',
+    'venezuela':'VES','vietnam':'VND','yemen':'YER','zambia':'ZMW','zimbabwe':'USD'
+  });
+
+  const FALLBACK_FX=Object.freeze({
+    EUR:1,USD:1.08,GBP:.86,CAD:1.47,CHF:.93,NOK:11.7,SEK:11.2,DKK:7.46,PLN:4.28,CZK:24.8,
+    HUF:395,RON:5.02,ISK:146,INR:94,AUD:1.65,NZD:1.80,JPY:170,CNY:7.8,KRW:1600,SGD:1.45,
+    AED:3.97,SAR:4.05,QAR:3.93,ILS:4.0,TRY:44,ZAR:20,EGP:55,MAD:10.8,TND:3.35,
+    MXN:19.9,BRL:6.0,COP:4600,CLP:1050,PEN:4.05,ARS:1600,UYU:46,PYG:8500,BOB:7.5,
+    CRC:560,GTQ:8.3,HNL:26.5,NIO:39.5,DOP:67,JMD:170,TTD:7.3,BBD:2.16,XCD:2.92,
+    IDR:17500,MYR:5.05,THB:39,PHP:63,VND:28500,PKR:302,BDT:126,LKR:325,NPR:150
+  });
+
+  const normalize=v=>String(v||'').trim().toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+
+  function currencyForCountry(value){
+    const v=normalize(value);
+    if(['usa','us','u.s.','united states of america','estados unidos'].includes(v)) return 'USD';
+    if(['uk','great britain','reino unido'].includes(v)) return 'GBP';
+    if(['espana'].includes(v)) return 'EUR';
+    if(['brasil'].includes(v)) return 'BRL';
+    if(['mexico'].includes(v)) return 'MXN';
+    if(['peru'].includes(v)) return 'PEN';
+    return COUNTRY_CURRENCY[v]||'EUR';
+  }
+
+  function formatMoney(amount,currency){
+    try{
+      const noDecimals=['JPY','KRW','CLP','COP','PYG','HUF','ISK','VND','IDR','GNF','RWF','UGX'];
+      return new Intl.NumberFormat('en-US',{
+        style:'currency',currency,
+        maximumFractionDigits:noDecimals.includes(currency)?0:2,
+        minimumFractionDigits:noDecimals.includes(currency)?0:2
+      }).format(Number(amount||0));
+    }catch(e){
+      return currency+' '+Number(amount||0).toFixed(2);
+    }
+  }
+
+  let ratesPromise=null;
+  function rates(){
+    if(ratesPromise) return ratesPromise;
+    ratesPromise=(async()=>{
+      try{
+        const cached=sessionStorage.getItem('ite-eur-fx-v1');
+        if(cached){
+          const parsed=JSON.parse(cached);
+          if(parsed&&parsed.ts&&Date.now()-parsed.ts<43200000&&parsed.rates) return parsed.rates;
+        }
+      }catch(e){}
+      try{
+        const res=await fetch('https://open.er-api.com/v6/latest/EUR',{cache:'default'});
+        if(res.ok){
+          const data=await res.json();
+          if(data&&data.rates){
+            try{sessionStorage.setItem('ite-eur-fx-v1',JSON.stringify({ts:Date.now(),rates:data.rates}));}catch(e){}
+            return data.rates;
+          }
+        }
+      }catch(e){}
+      return FALLBACK_FX;
+    })();
+    return ratesPromise;
+  }
+
+  async function renderEstimate(opts){
+    const currency=currencyForCountry(opts.origin);
+    const totalEUR=opts.dailyEUR*opts.days*opts.travelers;
+    const dailyTripEUR=opts.dailyEUR*opts.travelers;
+    const fx=await rates();
+    const rate=(fx&&fx[currency])||FALLBACK_FX[currency]||1;
+    const localTotal=totalEUR*rate;
+    const localDailyPerTraveler=opts.dailyEUR*rate;
+    const localDailyTrip=dailyTripEUR*rate;
+
+    if(opts.totalEl){
+      if(currency==='EUR'){
+        opts.totalEl.innerHTML=formatMoney(totalEUR,'EUR')+
+          '<small>'+formatMoney(opts.dailyEUR,'EUR')+' / day per traveler</small>';
+      }else{
+        opts.totalEl.innerHTML=formatMoney(localTotal,currency)+
+          '<small>≈ '+formatMoney(totalEUR,'EUR')+' total</small>';
+      }
+    }
+    if(opts.breakdownEl){
+      if(currency==='EUR'){
+        opts.breakdownEl.textContent=formatMoney(opts.dailyEUR,'EUR')+' / day per traveler · '+
+          opts.days+' day'+(opts.days===1?'':'s')+' · '+opts.travelers+' traveler'+(opts.travelers===1?'':'s');
+      }else{
+        opts.breakdownEl.textContent='≈ '+formatMoney(localDailyPerTraveler,currency)+' / day per traveler · '+
+          opts.days+' day'+(opts.days===1?'':'s')+' · '+opts.travelers+' traveler'+(opts.travelers===1?'':'s');
+      }
+    }
+    if(opts.euroDailyEl){
+      opts.euroDailyEl.textContent=currency==='EUR'?'':'≈ '+formatMoney(opts.dailyEUR,'EUR')+' / day per traveler';
+    }
+    return {currency,totalEUR,localTotal,localDailyPerTraveler,localDailyTrip};
+  }
+
+  window.ITEPrice={normalize,currencyForCountry,formatMoney,rates,renderEstimate};
+})();
+</script>
 <script id="ite-iati-result-js">
 (function(){
   const q=new URLSearchParams(location.search);
@@ -274,66 +421,7 @@
   const back=q.get('return');
   const travelersRaw=q.get('age')||'1 traveler';
 
-  const FX=Object.freeze({
-    EUR:1,
-    USD:1.08,
-    GBP:0.86,
-    CAD:1.47,
-    INR:94.0,
-    CHF:0.93,
-    NOK:11.7,
-    SEK:11.2,
-    DKK:7.46,
-    PLN:4.28,
-    CZK:24.8,
-    HUF:395,
-    RON:5.02,
-    ISK:146
-  });
-
-  const normalize=v=>String(v||'').trim().toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-
-  function currencyForPlace(value,isDestination){
-    const v=normalize(value);
-    if(['united states','united states of america','usa','us','u.s.','estados unidos'].includes(v)) return 'USD';
-    if(['united kingdom','uk','great britain','reino unido'].includes(v)) return 'GBP';
-    if(v==='canada') return 'CAD';
-    if(v==='india') return 'INR';
-    if(['switzerland','suiza'].includes(v)) return 'CHF';
-    if(['norway','noruega'].includes(v)) return 'NOK';
-    if(['sweden','suecia'].includes(v)) return 'SEK';
-    if(['denmark','dinamarca'].includes(v)) return 'DKK';
-    if(['poland','polonia'].includes(v)) return 'PLN';
-    if(['czech republic','czechia','chequia','republica checa'].includes(v)) return 'CZK';
-    if(['hungary','hungria'].includes(v)) return 'HUF';
-    if(['romania','rumania'].includes(v)) return 'RON';
-    if(['iceland','islandia'].includes(v)) return 'ISK';
-
-    const euroPlaces=[
-      'spain','espana','europe','europa','schengen','france','francia','italy','italia',
-      'germany','alemania','portugal','greece','grecia','netherlands','paises bajos',
-      'belgium','belgica','austria','ireland','irlanda','finland','finlandia',
-      'luxembourg','luxemburgo','slovakia','eslovaquia','slovenia','eslovenia',
-      'croatia','croacia','estonia','latvia','letonia','lithuania','lituania',
-      'malta','cyprus','chipre'
-    ];
-    if(euroPlaces.includes(v)) return 'EUR';
-
-    return isDestination?'EUR':'EUR';
-  }
-
-  function formatMoney(amount,currency){
-    try{
-      return new Intl.NumberFormat('en-US',{
-        style:'currency',
-        currency,
-        maximumFractionDigits:['HUF','ISK'].includes(currency)?0:2
-      }).format(amount);
-    }catch(e){
-      return currency+' '+Number(amount||0).toFixed(2);
-    }
-  }
+  const normalize=window.ITEPrice.normalize;
 
   function tripDays(){
     if(!depart||!back) return 14;
@@ -341,19 +429,16 @@
     const b=new Date(back+'T12:00:00');
     return Math.max(1,Math.round((b-a)/86400000)+1);
   }
-
   function travelerCount(){
     if(String(travelersRaw).includes('5+')) return 5;
     const m=String(travelersRaw).match(/\d+/);
     return m?Math.max(1,parseInt(m[0],10)):1;
   }
-
   function isEuropeDestination(){
     const v=normalize(destination);
     const nonEurope=['united states','united states of america','usa','us','u.s.','canada'];
     return !nonEurope.includes(v);
   }
-
   function dailyRateEUR(){
     const o=normalize(origin);
     if(isEuropeDestination()){
@@ -366,43 +451,24 @@
 
   const days=tripDays();
   const travelers=travelerCount();
-  const originCurrency=currencyForPlace(origin,false);
-  const destinationCurrency=currencyForPlace(destination,true);
   const rateEUR=dailyRateEUR();
-  const totalEUR=rateEUR*days*travelers;
 
-  const destRate=FX[destinationCurrency]||1;
-  const originRate=FX[originCurrency]||1;
-
-  const totalDest=totalEUR*destRate;
-  const totalOrigin=totalEUR*originRate;
-  const perDayDest=(rateEUR*travelers)*destRate;
-  const perDayOrigin=(rateEUR*travelers)*originRate;
-
-  const totalDestEl=document.getElementById('iati-total-dest');
-  const totalOriginEl=document.getElementById('iati-total-origin');
+  const totalEl=document.getElementById('iati-total-dest');
+  const euroDailyEl=document.getElementById('iati-total-origin');
   const breakdown=document.getElementById('iati-price-breakdown');
   const breakdownOrigin=document.getElementById('iati-price-breakdown-origin');
   const note=document.getElementById('iati-price-note');
 
-  if(totalDestEl){
-    totalDestEl.firstChild.nodeValue='≈ '+formatMoney(totalDest,destinationCurrency);
-  }
-  if(totalOriginEl){
-    if(originCurrency===destinationCurrency){
-      totalOriginEl.textContent='Destination and departure currency: '+destinationCurrency;
-    }else{
-      totalOriginEl.textContent='≈ '+formatMoney(totalOrigin,originCurrency)+' in departure currency';
+  window.ITEPrice.renderEstimate({
+    origin,dailyEUR:rateEUR,days,travelers,totalEl,breakdownEl:breakdown,euroDailyEl:breakdownOrigin
+  }).then(r=>{
+    if(euroDailyEl){
+      euroDailyEl.textContent=r.currency==='EUR'
+        ? window.ITEPrice.formatMoney(rateEUR,'EUR')+' / day per traveler'
+        : '≈ '+window.ITEPrice.formatMoney(rateEUR,'EUR')+' / day per traveler';
     }
-  }
-  if(breakdown){
-    breakdown.textContent='≈ '+formatMoney(perDayDest,destinationCurrency)+' / day · '+days+' day'+(days===1?'':'s')+' · '+travelers+' traveler'+(travelers===1?'':'s');
-  }
-  if(breakdownOrigin){
-    breakdownOrigin.textContent=originCurrency===destinationCurrency
-      ? ''
-      : '≈ '+formatMoney(perDayOrigin,originCurrency)+' / day in departure currency';
-  }
+  });
+
   if(note){
     note.textContent='Approximate editorial price and FX conversion. Final price, eligibility and policy terms are confirmed by IATI.';
   }
@@ -426,12 +492,12 @@
   const details=document.getElementById('chapka-details');
   const totalEl=document.getElementById('chapka-total');
   const breakdownEl=document.getElementById('chapka-price-breakdown');
+  const euroDailyEl=document.getElementById('chapka-euro-daily');
   if(!card) return;
 
-  const normalize=v=>String(v||'').trim().toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-
+  const normalize=window.ITEPrice.normalize;
   const q=new URLSearchParams(location.search);
+  const origin=(q.get('origin')||'').trim();
   const destination=normalize(q.get('destination'));
   const depart=q.get('depart');
   const back=q.get('return');
@@ -454,11 +520,9 @@
     if(explicitlyOutside.has(destination)) show=false;
     else if(!schengen.has(destination) && destination!=='multiple') show=false;
   }
-
   card.hidden=!show;
   if(count) count.textContent=show?'2 live providers':'1 live provider';
 
-  const pricePerDay=2.5;
   let days=1;
   if(depart&&back){
     const start=new Date(depart+'T12:00:00');
@@ -471,15 +535,9 @@
   if(m) travelers=Math.max(1,parseInt(m[0],10)||1);
   if(String(travelersRaw).includes('5+')) travelers=5;
 
-  const total=days*pricePerDay*travelers;
-  const money=v=>new Intl.NumberFormat('en-US',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(v);
-
-  if(totalEl){
-    totalEl.innerHTML=money(total)+'<small>€2.50 per day per traveler</small>';
-  }
-  if(breakdownEl){
-    breakdownEl.textContent=days+' day'+(days===1?'':'s')+' × €2.50/day'+(travelers>1?' × '+travelers+' travelers':'')+' = '+money(total);
-  }
+  window.ITEPrice.renderEstimate({
+    origin,dailyEUR:2.5,days,travelers,totalEl,breakdownEl,euroDailyEl
+  });
 
   if(button&&details){
     button.addEventListener('click',()=>{
