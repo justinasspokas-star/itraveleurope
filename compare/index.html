@@ -83,6 +83,21 @@
 .ite-source-note{font-size:11px;color:#7a8da0;line-height:1.55;margin-top:14px}
 .ite-affiliate-note{margin-top:14px;padding:14px 16px;border-radius:14px;background:#fff;border:1px solid var(--r-border);font-size:12px;color:var(--r-muted);line-height:1.55}
 .ite-affiliate-note strong{color:var(--r-text)}
+.ite-sort-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 14px}
+.ite-sort-copy{font-size:12px;color:var(--r-muted);line-height:1.45}
+.ite-sort-copy strong{display:block;color:var(--r-text);font-size:13px}
+.ite-sort-control{display:inline-flex;align-items:center;gap:4px;padding:4px;background:#eaf0f5;border:1px solid var(--r-border);border-radius:999px;flex:0 0 auto}
+.ite-sort-btn{appearance:none;border:0;background:transparent;color:var(--r-muted);font:inherit;font-size:12px;font-weight:800;padding:9px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.ite-sort-btn:hover{color:var(--r-navy)}
+.ite-sort-btn.active{background:#fff;color:var(--r-navy);box-shadow:0 2px 8px rgba(11,31,58,.10)}
+.ite-sort-btn:focus-visible{outline:3px solid rgba(0,196,161,.35);outline-offset:2px}
+.ite-provider-list{display:flex;flex-direction:column;gap:14px}
+.ite-provider-list .ite-provider-card + .ite-provider-card{margin-top:0}
+@media(max-width:560px){
+  .ite-sort-row{align-items:stretch;flex-direction:column;gap:9px}
+  .ite-sort-control{width:100%;display:grid;grid-template-columns:1fr 1fr}
+  .ite-sort-btn{width:100%;padding:10px 8px}
+}
 @media(max-width:840px){
   .ite-results-page{padding:28px 14px 50px}
   .ite-results-top{align-items:flex-start;flex-direction:column}
@@ -142,7 +157,16 @@
       </div>
     </section>
 
-    <article class="ite-provider-card ite-chapka-card" id="chapka-provider-card" aria-label="Chapka Cap Schengen travel insurance result">
+    <div class="ite-sort-row" aria-label="Sort insurance results">
+      <div class="ite-sort-copy"><strong>Sort results</strong><span>Choose recommended value or the lowest estimated trip total.</span></div>
+      <div class="ite-sort-control" id="results-sort-control" role="group" aria-label="Sort by">
+        <button class="ite-sort-btn active" type="button" data-sort="best" aria-pressed="true">Best deal</button>
+        <button class="ite-sort-btn" type="button" data-sort="cheapest" aria-pressed="false">Cheapest</button>
+      </div>
+    </div>
+
+    <div class="ite-provider-list" id="provider-results-list">
+    <article class="ite-provider-card ite-chapka-card" id="chapka-provider-card" data-best-rank="1" aria-label="Chapka Cap Schengen travel insurance result">
       <div class="ite-provider-badge">Schengen visa option · short stays</div>
       <div class="ite-provider-body">
         <div class="ite-provider-logo-block">
@@ -199,7 +223,7 @@
       </div>
     </article>
 
-    <article class="ite-provider-card" aria-label="IATI travel insurance result">
+    <article class="ite-provider-card" id="iati-provider-card" data-best-rank="2" aria-label="IATI travel insurance result">
       <div class="ite-provider-badge">International travel option</div>
       <div class="ite-provider-body">
         <div class="ite-provider-logo-block">
@@ -256,9 +280,7 @@
         <div class="ite-source-note">The live quote, eligibility decision, policy wording and price displayed by IATI at the time of purchase prevail over this comparison summary.</div>
       </div>
     </article>
-
-
-    
+    </div>
 
     <div class="ite-affiliate-note"><strong>Independent comparison:</strong> purchasing is completed directly with the selected provider. iTravelEurope may earn a commission if you buy through a partner link, without changing the provider’s published price.</div>
   </div>
@@ -269,6 +291,64 @@
 <div><h2>Company</h2><a href="../about/index.html">About &amp; editorial standards</a><a href="../contact/index.html">Contact</a><a href="../affiliate-disclosure/index.html">Affiliate disclosure</a><a href="../privacy/index.html">Privacy</a></div>
 </div><div class="footer-bottom"><span>© 2026 iTravelEurope</span><span>Information, not insurance, legal or medical advice.</span></div></footer>
 <div aria-label="Cookie preferences" class="cookie-banner" hidden="" role="dialog"><div><strong>Your privacy matters</strong><p>We use essential storage for site preferences. Optional analytics stay off unless you accept them.</p></div><div class="cookie-actions"><button class="button ghost" data-cookie="essential">Essential only</button><button class="button small" data-cookie="all">Accept analytics</button></div></div><script defer="" src="../assets/app.js"></script><script defer="" src="../assets/strategy.js"></script>
+<script id="ite-results-sort-js">
+(function(){
+  const list=document.getElementById('provider-results-list');
+  const control=document.getElementById('results-sort-control');
+  if(!list||!control) return;
+
+  let mode='best';
+
+  function visibleCards(){
+    return Array.from(list.querySelectorAll('.ite-provider-card')).filter(card=>!card.hidden);
+  }
+
+  function sortCards(){
+    const cards=visibleCards();
+    cards.sort((a,b)=>{
+      if(mode==='cheapest'){
+        const ap=Number(a.dataset.totalEur);
+        const bp=Number(b.dataset.totalEur);
+        const aValid=Number.isFinite(ap);
+        const bValid=Number.isFinite(bp);
+        if(aValid&&bValid&&ap!==bp) return ap-bp;
+        if(aValid&&!bValid) return -1;
+        if(!aValid&&bValid) return 1;
+      }
+      return Number(a.dataset.bestRank||999)-Number(b.dataset.bestRank||999);
+    });
+    cards.forEach(card=>list.appendChild(card));
+  }
+
+  function setMode(next){
+    mode=next==='cheapest'?'cheapest':'best';
+    control.querySelectorAll('[data-sort]').forEach(btn=>{
+      const active=btn.dataset.sort===mode;
+      btn.classList.toggle('active',active);
+      btn.setAttribute('aria-pressed',String(active));
+    });
+    sortCards();
+  }
+
+  control.addEventListener('click',e=>{
+    const btn=e.target.closest('[data-sort]');
+    if(!btn) return;
+    setMode(btn.dataset.sort);
+  });
+
+  window.ITESortResults={
+    refresh:sortCards,
+    setPrice:function(cardId,totalEUR){
+      const card=document.getElementById(cardId);
+      if(card&&Number.isFinite(Number(totalEUR))) card.dataset.totalEur=String(Number(totalEUR));
+      sortCards();
+    },
+    setMode
+  };
+
+  setMode('best');
+})();
+</script>
 <script id="ite-price-currency-utils">
 (function(){
   const COUNTRY_CURRENCY=Object.freeze({
@@ -462,6 +542,7 @@
   window.ITEPrice.renderEstimate({
     origin,dailyEUR:rateEUR,days,travelers,totalEl,breakdownEl:breakdown,euroDailyEl:breakdownOrigin
   }).then(r=>{
+    if(window.ITESortResults) window.ITESortResults.setPrice('iati-provider-card',r.totalEUR);
     if(euroDailyEl){
       euroDailyEl.textContent=r.currency==='EUR'
         ? window.ITEPrice.formatMoney(rateEUR,'EUR')+' / day per traveler'
@@ -522,6 +603,7 @@
   }
   card.hidden=!show;
   if(count) count.textContent=show?'2 live providers':'1 live provider';
+  if(window.ITESortResults) window.ITESortResults.refresh();
 
   let days=1;
   if(depart&&back){
@@ -537,6 +619,8 @@
 
   window.ITEPrice.renderEstimate({
     origin,dailyEUR:2.5,days,travelers,totalEl,breakdownEl,euroDailyEl
+  }).then(r=>{
+    if(window.ITESortResults) window.ITESortResults.setPrice('chapka-provider-card',r.totalEUR);
   });
 
   if(button&&details){
