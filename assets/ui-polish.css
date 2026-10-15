@@ -165,3 +165,75 @@ body.reference-home .questions-visual img{
     border-radius:18px;
   }
 }
+
+
+/* ---------- Guides page grid cleanup 2026-10-15 ---------- */
+body.guides-page .listing-section .article-grid.large{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:24px;
+  align-items:stretch;
+}
+body.guides-page .article-grid .article-card{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  height:100%;
+  padding:24px;
+}
+body.guides-page .article-grid .article-card>span{
+  display:block;
+  margin-bottom:8px;
+  line-height:1.4;
+}
+body.guides-page .article-grid .article-card h2,
+body.guides-page .article-grid .article-card h3{
+  margin:.25rem 0 .7rem;
+  overflow-wrap:anywhere;
+}
+body.guides-page .article-grid .article-card p{
+  flex:1;
+  margin:0 0 18px;
+}
+body.guides-page .article-grid .article-card .card-link{
+  margin-top:auto;
+  align-self:flex-start;
+}
+body.guides-page .listing-section .article-grid.large .article-card{
+  min-height:0;
+}
+body.guides-page .listing-section{
+  padding-top:3.5rem;
+}
+body.guides-page .listing-section .section-heading{
+  margin-bottom:1.75rem;
+}
+@media(max-width:960px){
+  body.guides-page .listing-section .article-grid.large{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:20px;
+  }
+}
+@media(max-width:720px){
+  body.guides-page .listing-hero{
+    padding-top:3.25rem;
+    padding-bottom:3rem;
+  }
+  body.guides-page .listing-section{
+    padding-top:3rem;
+  }
+  body.guides-page .listing-section .article-grid.large,
+  body.guides-page .article-grid{
+    grid-template-columns:minmax(0,1fr);
+    gap:16px;
+  }
+  body.guides-page .article-grid .article-card{
+    padding:20px;
+    min-height:0;
+  }
+  body.guides-page .article-grid .article-card h2,
+  body.guides-page .article-grid .article-card h3{
+    font-size:1.35rem;
+    line-height:1.2;
+  }
+}
