@@ -532,6 +532,11 @@
     return SCHENGEN.has(normalize(origin)) && SCHENGEN.has(normalize(destination));
   }
 
+  function isUKToSchengen(){
+    const o=normalize(origin);
+    return ['united kingdom','uk','great britain','reino unido'].includes(o) && SCHENGEN.has(normalize(destination));
+  }
+
   function schengenTripPriceEUR(days){
     // IATI Schengen → Schengen anchors supplied by the site owner:
     // 7 days = €21.09, 14 days = €30.43, 30 days = €50.51 per traveler.
@@ -546,6 +551,7 @@
   function dailyRateEUR(days){
     const o=normalize(origin);
     if(isSchengenToSchengen()) return schengenTripPriceEUR(days)/days;
+    if(isUKToSchengen()) return 26.80/14;
     if(isEuropeDestination()){
       if(['united kingdom','uk','great britain','reino unido'].includes(o)) return 2.35;
       if(['united states','united states of america','usa','us','u.s.','canada','india'].includes(o)) return 3.58;
@@ -557,6 +563,7 @@
   const days=tripDays();
   const travelers=travelerCount();
   const schengenRoute=isSchengenToSchengen();
+  const ukSchengenRoute=isUKToSchengen();
   const rateEUR=dailyRateEUR(days);
 
   const totalEl=document.getElementById('iati-total-dest');
@@ -579,7 +586,9 @@
   if(note){
     note.textContent=schengenRoute
       ? 'IATI Schengen → Schengen estimate based on €21.09 / 7 days, €30.43 / 14 days and €50.51 / 30 days per traveler, with continuous interpolation between durations. Final price, eligibility and policy terms are confirmed by IATI.'
-      : 'Approximate editorial price and FX conversion. Final price, eligibility and policy terms are confirmed by IATI.';
+      : ukSchengenRoute
+        ? 'IATI United Kingdom → Schengen estimate based on €26.80 / 14 days per traveler (€1.91/day). Until more duration anchors are available, other trip lengths are estimated using the same daily rate. Final price, eligibility and policy terms are confirmed by IATI.'
+        : 'Approximate editorial price and FX conversion. Final price, eligibility and policy terms are confirmed by IATI.';
   }
 
   const btn=document.getElementById('iati-details-button');
