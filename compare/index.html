@@ -537,6 +537,16 @@
     return ['united kingdom','uk','great britain','reino unido'].includes(o) && SCHENGEN.has(normalize(destination));
   }
 
+  const LATAM=new Set([
+    'argentina','bolivia','brazil','brasil','chile','colombia','costa rica','cuba',
+    'dominican republic','republica dominicana','ecuador','el salvador','guatemala',
+    'haiti','honduras','mexico','nicaragua','panama','paraguay','peru','uruguay','venezuela'
+  ]);
+
+  function isLatamToSchengen(){
+    return LATAM.has(normalize(origin)) && SCHENGEN.has(normalize(destination));
+  }
+
   function schengenTripPriceEUR(days){
     // IATI Schengen → Schengen anchors supplied by the site owner:
     // 7 days = €21.09, 14 days = €30.43, 30 days = €50.51 per traveler.
@@ -548,10 +558,25 @@
     return 50.51+(d-30)*((50.51-30.43)/16);
   }
 
+  function latamSchengenTripPriceEUR(days){
+    // IATI LATAM → Schengen anchors supplied by the site owner:
+    // 7d €34.68 · 14d €52.91 · 30d €85.02 · 60d €158.75 · 90d €245.82.
+    // Interpolate cumulative trip price between anchors so every supplied duration stays exact.
+    const d=Math.max(1,Number(days)||1);
+    if(d<=7) return 34.68*(d/7);
+    if(d<=14) return 34.68+(52.91-34.68)*((d-7)/7);
+    if(d<=30) return 52.91+(85.02-52.91)*((d-14)/16);
+    if(d<=60) return 85.02+(158.75-85.02)*((d-30)/30);
+    if(d<=90) return 158.75+(245.82-158.75)*((d-60)/30);
+    // Beyond 90 days, continue with the last observed marginal daily increase.
+    return 245.82+(d-90)*((245.82-158.75)/30);
+  }
+
   function dailyRateEUR(days){
     const o=normalize(origin);
     if(isSchengenToSchengen()) return schengenTripPriceEUR(days)/days;
     if(isUKToSchengen()) return 26.80/14;
+    if(isLatamToSchengen()) return latamSchengenTripPriceEUR(days)/days;
     if(isEuropeDestination()){
       if(['united kingdom','uk','great britain','reino unido'].includes(o)) return 2.35;
       if(['united states','united states of america','usa','us','u.s.','canada','india'].includes(o)) return 3.58;
@@ -564,6 +589,7 @@
   const travelers=travelerCount();
   const schengenRoute=isSchengenToSchengen();
   const ukSchengenRoute=isUKToSchengen();
+  const latamSchengenRoute=isLatamToSchengen();
   const rateEUR=dailyRateEUR(days);
 
   const totalEl=document.getElementById('iati-total-dest');
@@ -588,7 +614,9 @@
       ? 'IATI Schengen → Schengen estimate based on €21.09 / 7 days, €30.43 / 14 days and €50.51 / 30 days per traveler, with continuous interpolation between durations. Final price, eligibility and policy terms are confirmed by IATI.'
       : ukSchengenRoute
         ? 'IATI United Kingdom → Schengen estimate based on €26.80 / 14 days per traveler (€1.91/day). Until more duration anchors are available, other trip lengths are estimated using the same daily rate. Final price, eligibility and policy terms are confirmed by IATI.'
-        : 'Approximate editorial price and FX conversion. Final price, eligibility and policy terms are confirmed by IATI.';
+        : latamSchengenRoute
+          ? 'IATI LATAM → Schengen estimate based on €34.68 / 7 days, €52.91 / 14 days, €85.02 / 30 days, €158.75 / 60 days and €245.82 / 90 days per traveler. Intermediate durations use continuous interpolation between these exact anchors. Final price, eligibility and policy terms are confirmed by IATI.'
+          : 'Approximate editorial price and FX conversion. Final price, eligibility and policy terms are confirmed by IATI.';
   }
 
   const btn=document.getElementById('iati-details-button');
