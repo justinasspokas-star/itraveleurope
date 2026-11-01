@@ -519,8 +519,33 @@
     const nonEurope=['united states','united states of america','usa','us','u.s.','canada'];
     return !nonEurope.includes(v);
   }
-  function dailyRateEUR(){
+
+  const SCHENGEN=new Set([
+    'austria','belgium','bulgaria','croatia','czechia','czech republic','denmark',
+    'estonia','finland','france','germany','greece','hungary','iceland','italy',
+    'latvia','liechtenstein','lithuania','luxembourg','malta','netherlands','norway',
+    'poland','portugal','romania','slovakia','slovenia','spain','espana','sweden',
+    'switzerland','schengen','schengen area'
+  ]);
+
+  function isSchengenToSchengen(){
+    return SCHENGEN.has(normalize(origin)) && SCHENGEN.has(normalize(destination));
+  }
+
+  function schengenTripPriceEUR(days){
+    // IATI Schengen → Schengen anchors supplied by the site owner:
+    // 7 days = €21.09, 14 days = €30.43, 30 days = €50.51 per traveler.
+    const d=Math.max(1,Number(days)||1);
+    if(d<=7) return 21.09*(d/7);
+    if(d<=14) return 21.09+(30.43-21.09)*((d-7)/7);
+    if(d<=30) return 30.43+(50.51-30.43)*((d-14)/16);
+    // Beyond 30 days, continue with the last observed marginal daily increase.
+    return 50.51+(d-30)*((50.51-30.43)/16);
+  }
+
+  function dailyRateEUR(days){
     const o=normalize(origin);
+    if(isSchengenToSchengen()) return schengenTripPriceEUR(days)/days;
     if(isEuropeDestination()){
       if(['united kingdom','uk','great britain','reino unido'].includes(o)) return 2.35;
       if(['united states','united states of america','usa','us','u.s.','canada','india'].includes(o)) return 3.58;
@@ -531,7 +556,8 @@
 
   const days=tripDays();
   const travelers=travelerCount();
-  const rateEUR=dailyRateEUR();
+  const schengenRoute=isSchengenToSchengen();
+  const rateEUR=dailyRateEUR(days);
 
   const totalEl=document.getElementById('iati-total-dest');
   const euroDailyEl=document.getElementById('iati-total-origin');
@@ -551,7 +577,9 @@
   });
 
   if(note){
-    note.textContent='Approximate editorial price and FX conversion. Final price, eligibility and policy terms are confirmed by IATI.';
+    note.textContent=schengenRoute
+      ? 'IATI Schengen → Schengen estimate based on €21.09 / 7 days, €30.43 / 14 days and €50.51 / 30 days per traveler, with continuous interpolation between durations. Final price, eligibility and policy terms are confirmed by IATI.'
+      : 'Approximate editorial price and FX conversion. Final price, eligibility and policy terms are confirmed by IATI.';
   }
 
   const btn=document.getElementById('iati-details-button');
